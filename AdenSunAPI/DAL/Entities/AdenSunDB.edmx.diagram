@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="96926800b46d466d9a45084418c7a820" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="AdenSunModel.Adress_T" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Delivery_T" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Department_T" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Discount_T" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Item_T" Width="1.5" PointX="7.5" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.ItemCategory_T" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Order_T" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.OrderItem_T" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.Region_T" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.ShoppingCart_T" Width="1.5" PointX="7.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.ShoppingCartItem_T" Width="1.5" PointX="9.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.User_T" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdenSunModel.UserReview_T" Width="1.5" PointX="12" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="AdenSunModel.FK_Adress_T_Department_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_Adress_T_Region_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_User_T_Adress_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_Order_T_Delivery_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_Discount_T_ItemCategory_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_OrderItem_T_Item_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_ShoppingCartItem_T_Item_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_ItemCategory_T_ItemCategory_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_Order_T_User_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_OrderItem_T_Order_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_UserReview_T_OrderItem_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_ShoppingCart_T_User_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_ShoppingCartItem_T_ShoppingCart_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.FK_UserReview_T_User_T" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.J_Discount_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="AdenSunModel.J_Item_ItemCategory" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

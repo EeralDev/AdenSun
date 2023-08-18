@@ -1,0 +1,1146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AdenSunModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adress_T">
+          <Key>
+            <PropertyRef Name="AdressID" />
+          </Key>
+          <Property Name="AdressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StreetNumber" Type="int" />
+          <Property Name="StreetName" Type="varchar" MaxLength="255" />
+          <Property Name="AdressLine" Type="varchar" MaxLength="255" />
+          <Property Name="ZipCode" Type="int" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Delivery_T">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="Sender" Type="varchar" MaxLength="255" />
+          <Property Name="TrackingNumber" Type="int" Nullable="false" />
+          <Property Name="IsReceived" Type="bit" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department_T">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Discount_T">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="255" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="ExpirationDate" Type="date" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsGlobal" Type="bit" Nullable="false" />
+          <Property Name="CategoryID" Type="int" />
+        </EntityType>
+        <EntityType Name="Item_T">
+          <Key>
+            <PropertyRef Name="Item_ID" />
+          </Key>
+          <Property Name="Item_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Brand" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Image" Type="varchar" MaxLength="255" />
+          <Property Name="Image2" Type="varchar" MaxLength="255" />
+          <Property Name="Image3" Type="varchar" MaxLength="255" />
+          <Property Name="CatchPhrase" Type="varchar" MaxLength="255" />
+          <Property Name="SKU" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ItemCategory_T">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ParentID" Type="int" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'AdenSun.dbo.J_Discount_Item' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="J_Discount_Item">
+          <Key>
+            <PropertyRef Name="DiscountID" />
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="DiscountID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Erreurs détectées durant la génération :
+avertissement 6002: La table/vue 'AdenSun.dbo.J_Item_ItemCategory' n'a pas de clé primaire définie. La clé a été déduite et la définition a été créée en tant que table/vue en lecture seule.-->
+        <EntityType Name="J_Item_ItemCategory">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_T">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="IsValid" Type="bit" Nullable="false" />
+          <Property Name="ValidationDate" Type="date" />
+          <Property Name="Total" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="DeliveryID" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItem_T">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+          </Key>
+          <Property Name="OrderItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region_T">
+          <Key>
+            <PropertyRef Name="RegionID" />
+          </Key>
+          <Property Name="RegionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionName" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShoppingCart_T">
+          <Key>
+            <PropertyRef Name="ShoppingCartID" />
+          </Key>
+          <Property Name="ShoppingCartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Total" Type="float" StoreGeneratedPattern="Computed" />
+          <Property Name="CreationDate" Type="date" Nullable="false" />
+          <Property Name="LastUpdate" Type="date" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItem_T">
+          <Key>
+            <PropertyRef Name="ShoppingCartItemID" />
+          </Key>
+          <Property Name="ShoppingCartItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="ShoppingCartID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="User_T">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsProfessional" Type="bit" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="255" />
+          <Property Name="CreatedDate" Type="date" Nullable="false" />
+          <Property Name="AdressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserReview_T">
+          <Key>
+            <PropertyRef Name="UserReviewID" />
+          </Key>
+          <Property Name="UserReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="OrderItemID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Adress_T_Department_T">
+          <End Role="Department_T" Type="Self.Department_T" Multiplicity="1" />
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department_T">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Adress_T">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_T_Region_T">
+          <End Role="Region_T" Type="Self.Region_T" Multiplicity="1" />
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region_T">
+              <PropertyRef Name="RegionID" />
+            </Principal>
+            <Dependent Role="Adress_T">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Discount_T_ItemCategory_T">
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="0..1" />
+          <End Role="Discount_T" Type="Self.Discount_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory_T">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Discount_T">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCategory_T_ItemCategory_T">
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="0..1" />
+          <End Role="ItemCategory_T1" Type="Self.ItemCategory_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory_T">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ItemCategory_T1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_J_Discount_Item_Discount_T">
+          <End Role="Discount_T" Type="Self.Discount_T" Multiplicity="1" />
+          <End Role="J_Discount_Item" Type="Self.J_Discount_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount_T">
+              <PropertyRef Name="Discount_ID" />
+            </Principal>
+            <Dependent Role="J_Discount_Item">
+              <PropertyRef Name="DiscountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_J_Discount_Item_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="J_Discount_Item" Type="Self.J_Discount_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="J_Discount_Item">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_T_Delivery_T">
+          <End Role="Delivery_T" Type="Self.Delivery_T" Multiplicity="0..1" />
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delivery_T">
+              <PropertyRef Name="DeliveryID" />
+            </Principal>
+            <Dependent Role="Order_T">
+              <PropertyRef Name="DeliveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_T_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="OrderItem_T">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_T_Order_T">
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="1" />
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_T">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItem_T">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCart_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="ShoppingCart_T" Type="Self.ShoppingCart_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingCart_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCartItem_T_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="ShoppingCartItem_T" Type="Self.ShoppingCartItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItem_T">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCartItem_T_ShoppingCart_T">
+          <End Role="ShoppingCart_T" Type="Self.ShoppingCart_T" Multiplicity="1" />
+          <End Role="ShoppingCartItem_T" Type="Self.ShoppingCartItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart_T">
+              <PropertyRef Name="ShoppingCartID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItem_T">
+              <PropertyRef Name="ShoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="J_Item_ItemCategory" Type="Self.J_Item_ItemCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="J_Item_ItemCategory">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_1_ItemCategory_T">
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="1" />
+          <End Role="J_Item_ItemCategory" Type="Self.J_Item_ItemCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory_T">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="J_Item_ItemCategory">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_T_Adress_T">
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="1" />
+          <End Role="User_T" Type="Self.User_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress_T">
+              <PropertyRef Name="AdressID" />
+            </Principal>
+            <Dependent Role="User_T">
+              <PropertyRef Name="AdressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReview_T_OrderItem_T">
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="1" />
+          <End Role="UserReview_T" Type="Self.UserReview_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderItem_T">
+              <PropertyRef Name="OrderItemID" />
+            </Principal>
+            <Dependent Role="UserReview_T">
+              <PropertyRef Name="OrderItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReview_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="UserReview_T" Type="Self.UserReview_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserReview_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="FUNC_CALC_ORDERI_TOTAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="ORDER_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="FUNC_CALC_SCI_TOTAL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="float">
+          <Parameter Name="SCI_ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="AdenSunModelStoreContainer">
+          <EntitySet Name="Adress_T" EntityType="Self.Adress_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivery_T" EntityType="Self.Delivery_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department_T" EntityType="Self.Department_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount_T" EntityType="Self.Discount_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item_T" EntityType="Self.Item_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemCategory_T" EntityType="Self.ItemCategory_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_T" EntityType="Self.Order_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem_T" EntityType="Self.OrderItem_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region_T" EntityType="Self.Region_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCart_T" EntityType="Self.ShoppingCart_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShoppingCartItem_T" EntityType="Self.ShoppingCartItem_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_T" EntityType="Self.User_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserReview_T" EntityType="Self.UserReview_T" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="J_Discount_Item" EntityType="Self.J_Discount_Item" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [J_Discount_Item].[DiscountID] AS [DiscountID], 
+    [J_Discount_Item].[ItemID] AS [ItemID]
+    FROM [dbo].[J_Discount_Item] AS [J_Discount_Item]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="J_Item_ItemCategory" EntityType="Self.J_Item_ItemCategory" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [J_Item_ItemCategory].[CategoryID] AS [CategoryID], 
+    [J_Item_ItemCategory].[ItemID] AS [ItemID]
+    FROM [dbo].[J_Item_ItemCategory] AS [J_Item_ItemCategory]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Adress_T_Department_T" Association="Self.FK_Adress_T_Department_T">
+            <End Role="Department_T" EntitySet="Department_T" />
+            <End Role="Adress_T" EntitySet="Adress_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_T_Region_T" Association="Self.FK_Adress_T_Region_T">
+            <End Role="Region_T" EntitySet="Region_T" />
+            <End Role="Adress_T" EntitySet="Adress_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discount_T_ItemCategory_T" Association="Self.FK_Discount_T_ItemCategory_T">
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+            <End Role="Discount_T" EntitySet="Discount_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCategory_T_ItemCategory_T" Association="Self.FK_ItemCategory_T_ItemCategory_T">
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+            <End Role="ItemCategory_T1" EntitySet="ItemCategory_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_J_Discount_Item_Discount_T" Association="Self.FK_J_Discount_Item_Discount_T">
+            <End Role="Discount_T" EntitySet="Discount_T" />
+            <End Role="J_Discount_Item" EntitySet="J_Discount_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_J_Discount_Item_Item_T" Association="Self.FK_J_Discount_Item_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="J_Discount_Item" EntitySet="J_Discount_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_T_Delivery_T" Association="Self.FK_Order_T_Delivery_T">
+            <End Role="Delivery_T" EntitySet="Delivery_T" />
+            <End Role="Order_T" EntitySet="Order_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_T_User_T" Association="Self.FK_Order_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="Order_T" EntitySet="Order_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_T_Item_T" Association="Self.FK_OrderItem_T_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_T_Order_T" Association="Self.FK_OrderItem_T_Order_T">
+            <End Role="Order_T" EntitySet="Order_T" />
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_T_User_T" Association="Self.FK_ShoppingCart_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="ShoppingCart_T" EntitySet="ShoppingCart_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCartItem_T_Item_T" Association="Self.FK_ShoppingCartItem_T_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="ShoppingCartItem_T" EntitySet="ShoppingCartItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCartItem_T_ShoppingCart_T" Association="Self.FK_ShoppingCartItem_T_ShoppingCart_T">
+            <End Role="ShoppingCart_T" EntitySet="ShoppingCart_T" />
+            <End Role="ShoppingCartItem_T" EntitySet="ShoppingCartItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_Item_T" Association="Self.FK_Table_1_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="J_Item_ItemCategory" EntitySet="J_Item_ItemCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_1_ItemCategory_T" Association="Self.FK_Table_1_ItemCategory_T">
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+            <End Role="J_Item_ItemCategory" EntitySet="J_Item_ItemCategory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_T_Adress_T" Association="Self.FK_User_T_Adress_T">
+            <End Role="Adress_T" EntitySet="Adress_T" />
+            <End Role="User_T" EntitySet="User_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReview_T_OrderItem_T" Association="Self.FK_UserReview_T_OrderItem_T">
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+            <End Role="UserReview_T" EntitySet="UserReview_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReview_T_User_T" Association="Self.FK_UserReview_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="UserReview_T" EntitySet="UserReview_T" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AdenSunModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adress_T">
+          <Key>
+            <PropertyRef Name="AdressID" />
+          </Key>
+          <Property Name="AdressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StreetNumber" Type="Int32" />
+          <Property Name="StreetName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AdressLine" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="Int32" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department_T" Relationship="Self.FK_Adress_T_Department_T" FromRole="Adress_T" ToRole="Department_T" />
+          <NavigationProperty Name="Region_T" Relationship="Self.FK_Adress_T_Region_T" FromRole="Adress_T" ToRole="Region_T" />
+          <NavigationProperty Name="User_T" Relationship="Self.FK_User_T_Adress_T" FromRole="Adress_T" ToRole="User_T" />
+        </EntityType>
+        <EntityType Name="Delivery_T">
+          <Key>
+            <PropertyRef Name="DeliveryID" />
+          </Key>
+          <Property Name="DeliveryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Sender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TrackingNumber" Type="Int32" Nullable="false" />
+          <Property Name="IsReceived" Type="Boolean" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Order_T" Relationship="Self.FK_Order_T_Delivery_T" FromRole="Delivery_T" ToRole="Order_T" />
+        </EntityType>
+        <EntityType Name="Department_T">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Adress_T" Relationship="Self.FK_Adress_T_Department_T" FromRole="Department_T" ToRole="Adress_T" />
+        </EntityType>
+        <EntityType Name="Discount_T">
+          <Key>
+            <PropertyRef Name="Discount_ID" />
+          </Key>
+          <Property Name="Discount_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsGlobal" Type="Boolean" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <NavigationProperty Name="ItemCategory_T" Relationship="Self.FK_Discount_T_ItemCategory_T" FromRole="Discount_T" ToRole="ItemCategory_T" />
+          <NavigationProperty Name="Item_T" Relationship="Self.J_Discount_Item" FromRole="Discount_T" ToRole="Item_T" />
+        </EntityType>
+        <EntityType Name="Item_T">
+          <Key>
+            <PropertyRef Name="Item_ID" />
+          </Key>
+          <Property Name="Item_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Brand" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Image2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Image3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CatchPhrase" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SKU" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderItem_T" Relationship="Self.FK_OrderItem_T_Item_T" FromRole="Item_T" ToRole="OrderItem_T" />
+          <NavigationProperty Name="ShoppingCartItem_T" Relationship="Self.FK_ShoppingCartItem_T_Item_T" FromRole="Item_T" ToRole="ShoppingCartItem_T" />
+          <NavigationProperty Name="Discount_T" Relationship="Self.J_Discount_Item" FromRole="Item_T" ToRole="Discount_T" />
+          <NavigationProperty Name="ItemCategory_T" Relationship="Self.J_Item_ItemCategory" FromRole="Item_T" ToRole="ItemCategory_T" />
+        </EntityType>
+        <EntityType Name="ItemCategory_T">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentID" Type="Int32" />
+          <NavigationProperty Name="Discount_T" Relationship="Self.FK_Discount_T_ItemCategory_T" FromRole="ItemCategory_T" ToRole="Discount_T" />
+          <NavigationProperty Name="ItemCategory_T1" Relationship="Self.FK_ItemCategory_T_ItemCategory_T" FromRole="ItemCategory_T" ToRole="ItemCategory_T1" />
+          <NavigationProperty Name="ItemCategory_T2" Relationship="Self.FK_ItemCategory_T_ItemCategory_T" FromRole="ItemCategory_T1" ToRole="ItemCategory_T" />
+          <NavigationProperty Name="Item_T" Relationship="Self.J_Item_ItemCategory" FromRole="ItemCategory_T" ToRole="Item_T" />
+        </EntityType>
+        <EntityType Name="Order_T">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsValid" Type="Boolean" Nullable="false" />
+          <Property Name="ValidationDate" Type="DateTime" Precision="0" />
+          <Property Name="Total" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="DeliveryID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Delivery_T" Relationship="Self.FK_Order_T_Delivery_T" FromRole="Order_T" ToRole="Delivery_T" />
+          <NavigationProperty Name="User_T" Relationship="Self.FK_Order_T_User_T" FromRole="Order_T" ToRole="User_T" />
+          <NavigationProperty Name="OrderItem_T" Relationship="Self.FK_OrderItem_T_Order_T" FromRole="Order_T" ToRole="OrderItem_T" />
+        </EntityType>
+        <EntityType Name="OrderItem_T">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+          </Key>
+          <Property Name="OrderItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item_T" Relationship="Self.FK_OrderItem_T_Item_T" FromRole="OrderItem_T" ToRole="Item_T" />
+          <NavigationProperty Name="Order_T" Relationship="Self.FK_OrderItem_T_Order_T" FromRole="OrderItem_T" ToRole="Order_T" />
+          <NavigationProperty Name="UserReview_T" Relationship="Self.FK_UserReview_T_OrderItem_T" FromRole="OrderItem_T" ToRole="UserReview_T" />
+        </EntityType>
+        <EntityType Name="Region_T">
+          <Key>
+            <PropertyRef Name="RegionID" />
+          </Key>
+          <Property Name="RegionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Adress_T" Relationship="Self.FK_Adress_T_Region_T" FromRole="Region_T" ToRole="Adress_T" />
+        </EntityType>
+        <EntityType Name="ShoppingCart_T">
+          <Key>
+            <PropertyRef Name="ShoppingCartID" />
+          </Key>
+          <Property Name="ShoppingCartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Total" Type="Double" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastUpdate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="User_T" Relationship="Self.FK_ShoppingCart_T_User_T" FromRole="ShoppingCart_T" ToRole="User_T" />
+          <NavigationProperty Name="ShoppingCartItem_T" Relationship="Self.FK_ShoppingCartItem_T_ShoppingCart_T" FromRole="ShoppingCart_T" ToRole="ShoppingCartItem_T" />
+        </EntityType>
+        <EntityType Name="ShoppingCartItem_T">
+          <Key>
+            <PropertyRef Name="ShoppingCartItemID" />
+          </Key>
+          <Property Name="ShoppingCartItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="ShoppingCartID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Item_T" Relationship="Self.FK_ShoppingCartItem_T_Item_T" FromRole="ShoppingCartItem_T" ToRole="Item_T" />
+          <NavigationProperty Name="ShoppingCart_T" Relationship="Self.FK_ShoppingCartItem_T_ShoppingCart_T" FromRole="ShoppingCartItem_T" ToRole="ShoppingCart_T" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="User_T">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsProfessional" Type="Boolean" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AdressID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Adress_T" Relationship="Self.FK_User_T_Adress_T" FromRole="User_T" ToRole="Adress_T" />
+          <NavigationProperty Name="Order_T" Relationship="Self.FK_Order_T_User_T" FromRole="User_T" ToRole="Order_T" />
+          <NavigationProperty Name="ShoppingCart_T" Relationship="Self.FK_ShoppingCart_T_User_T" FromRole="User_T" ToRole="ShoppingCart_T" />
+          <NavigationProperty Name="UserReview_T" Relationship="Self.FK_UserReview_T_User_T" FromRole="User_T" ToRole="UserReview_T" />
+        </EntityType>
+        <EntityType Name="UserReview_T">
+          <Key>
+            <PropertyRef Name="UserReviewID" />
+          </Key>
+          <Property Name="UserReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="OrderItemID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OrderItem_T" Relationship="Self.FK_UserReview_T_OrderItem_T" FromRole="UserReview_T" ToRole="OrderItem_T" />
+          <NavigationProperty Name="User_T" Relationship="Self.FK_UserReview_T_User_T" FromRole="UserReview_T" ToRole="User_T" />
+        </EntityType>
+        <Association Name="FK_Adress_T_Department_T">
+          <End Role="Department_T" Type="Self.Department_T" Multiplicity="1" />
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department_T">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="Adress_T">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Adress_T_Region_T">
+          <End Role="Region_T" Type="Self.Region_T" Multiplicity="1" />
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region_T">
+              <PropertyRef Name="RegionID" />
+            </Principal>
+            <Dependent Role="Adress_T">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_T_Adress_T">
+          <End Role="Adress_T" Type="Self.Adress_T" Multiplicity="1" />
+          <End Role="User_T" Type="Self.User_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress_T">
+              <PropertyRef Name="AdressID" />
+            </Principal>
+            <Dependent Role="User_T">
+              <PropertyRef Name="AdressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_T_Delivery_T">
+          <End Role="Delivery_T" Type="Self.Delivery_T" Multiplicity="0..1" />
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delivery_T">
+              <PropertyRef Name="DeliveryID" />
+            </Principal>
+            <Dependent Role="Order_T">
+              <PropertyRef Name="DeliveryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Discount_T_ItemCategory_T">
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="0..1" />
+          <End Role="Discount_T" Type="Self.Discount_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory_T">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Discount_T">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_T_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="OrderItem_T">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCartItem_T_Item_T">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="1" />
+          <End Role="ShoppingCartItem_T" Type="Self.ShoppingCartItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item_T">
+              <PropertyRef Name="Item_ID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItem_T">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCategory_T_ItemCategory_T">
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="0..1" />
+          <End Role="ItemCategory_T1" Type="Self.ItemCategory_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemCategory_T">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="ItemCategory_T1">
+              <PropertyRef Name="ParentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_T_Order_T">
+          <End Role="Order_T" Type="Self.Order_T" Multiplicity="1" />
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_T">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItem_T">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReview_T_OrderItem_T">
+          <End Role="OrderItem_T" Type="Self.OrderItem_T" Multiplicity="1" />
+          <End Role="UserReview_T" Type="Self.UserReview_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderItem_T">
+              <PropertyRef Name="OrderItemID" />
+            </Principal>
+            <Dependent Role="UserReview_T">
+              <PropertyRef Name="OrderItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCart_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="ShoppingCart_T" Type="Self.ShoppingCart_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ShoppingCart_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShoppingCartItem_T_ShoppingCart_T">
+          <End Role="ShoppingCart_T" Type="Self.ShoppingCart_T" Multiplicity="1" />
+          <End Role="ShoppingCartItem_T" Type="Self.ShoppingCartItem_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShoppingCart_T">
+              <PropertyRef Name="ShoppingCartID" />
+            </Principal>
+            <Dependent Role="ShoppingCartItem_T">
+              <PropertyRef Name="ShoppingCartID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReview_T_User_T">
+          <End Role="User_T" Type="Self.User_T" Multiplicity="1" />
+          <End Role="UserReview_T" Type="Self.UserReview_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_T">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserReview_T">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="J_Discount_Item">
+          <End Role="Discount_T" Type="Self.Discount_T" Multiplicity="*" />
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="*" />
+        </Association>
+        <Association Name="J_Item_ItemCategory">
+          <End Role="Item_T" Type="Self.Item_T" Multiplicity="*" />
+          <End Role="ItemCategory_T" Type="Self.ItemCategory_T" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="AdenSunEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adress_T" EntityType="Self.Adress_T" />
+          <EntitySet Name="Delivery_T" EntityType="Self.Delivery_T" />
+          <EntitySet Name="Department_T" EntityType="Self.Department_T" />
+          <EntitySet Name="Discount_T" EntityType="Self.Discount_T" />
+          <EntitySet Name="Item_T" EntityType="Self.Item_T" />
+          <EntitySet Name="ItemCategory_T" EntityType="Self.ItemCategory_T" />
+          <EntitySet Name="Order_T" EntityType="Self.Order_T" />
+          <EntitySet Name="OrderItem_T" EntityType="Self.OrderItem_T" />
+          <EntitySet Name="Region_T" EntityType="Self.Region_T" />
+          <EntitySet Name="ShoppingCart_T" EntityType="Self.ShoppingCart_T" />
+          <EntitySet Name="ShoppingCartItem_T" EntityType="Self.ShoppingCartItem_T" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="User_T" EntityType="Self.User_T" />
+          <EntitySet Name="UserReview_T" EntityType="Self.UserReview_T" />
+          <AssociationSet Name="FK_Adress_T_Department_T" Association="Self.FK_Adress_T_Department_T">
+            <End Role="Department_T" EntitySet="Department_T" />
+            <End Role="Adress_T" EntitySet="Adress_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Adress_T_Region_T" Association="Self.FK_Adress_T_Region_T">
+            <End Role="Region_T" EntitySet="Region_T" />
+            <End Role="Adress_T" EntitySet="Adress_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_T_Adress_T" Association="Self.FK_User_T_Adress_T">
+            <End Role="Adress_T" EntitySet="Adress_T" />
+            <End Role="User_T" EntitySet="User_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_T_Delivery_T" Association="Self.FK_Order_T_Delivery_T">
+            <End Role="Delivery_T" EntitySet="Delivery_T" />
+            <End Role="Order_T" EntitySet="Order_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Discount_T_ItemCategory_T" Association="Self.FK_Discount_T_ItemCategory_T">
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+            <End Role="Discount_T" EntitySet="Discount_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_T_Item_T" Association="Self.FK_OrderItem_T_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCartItem_T_Item_T" Association="Self.FK_ShoppingCartItem_T_Item_T">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="ShoppingCartItem_T" EntitySet="ShoppingCartItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCategory_T_ItemCategory_T" Association="Self.FK_ItemCategory_T_ItemCategory_T">
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+            <End Role="ItemCategory_T1" EntitySet="ItemCategory_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_T_User_T" Association="Self.FK_Order_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="Order_T" EntitySet="Order_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_T_Order_T" Association="Self.FK_OrderItem_T_Order_T">
+            <End Role="Order_T" EntitySet="Order_T" />
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReview_T_OrderItem_T" Association="Self.FK_UserReview_T_OrderItem_T">
+            <End Role="OrderItem_T" EntitySet="OrderItem_T" />
+            <End Role="UserReview_T" EntitySet="UserReview_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_T_User_T" Association="Self.FK_ShoppingCart_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="ShoppingCart_T" EntitySet="ShoppingCart_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCartItem_T_ShoppingCart_T" Association="Self.FK_ShoppingCartItem_T_ShoppingCart_T">
+            <End Role="ShoppingCart_T" EntitySet="ShoppingCart_T" />
+            <End Role="ShoppingCartItem_T" EntitySet="ShoppingCartItem_T" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReview_T_User_T" Association="Self.FK_UserReview_T_User_T">
+            <End Role="User_T" EntitySet="User_T" />
+            <End Role="UserReview_T" EntitySet="UserReview_T" />
+          </AssociationSet>
+          <AssociationSet Name="J_Discount_Item" Association="Self.J_Discount_Item">
+            <End Role="Discount_T" EntitySet="Discount_T" />
+            <End Role="Item_T" EntitySet="Item_T" />
+          </AssociationSet>
+          <AssociationSet Name="J_Item_ItemCategory" Association="Self.J_Item_ItemCategory">
+            <End Role="Item_T" EntitySet="Item_T" />
+            <End Role="ItemCategory_T" EntitySet="ItemCategory_T" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AdenSunModelStoreContainer" CdmEntityContainer="AdenSunEntities">
+          <EntitySetMapping Name="Adress_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Adress_T">
+              <MappingFragment StoreEntitySet="Adress_T">
+                <ScalarProperty Name="AdressID" ColumnName="AdressID" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="AdressLine" ColumnName="AdressLine" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delivery_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Delivery_T">
+              <MappingFragment StoreEntitySet="Delivery_T">
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="TrackingNumber" ColumnName="TrackingNumber" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Department_T">
+              <MappingFragment StoreEntitySet="Department_T">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discount_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Discount_T">
+              <MappingFragment StoreEntitySet="Discount_T">
+                <ScalarProperty Name="Discount_ID" ColumnName="Discount_ID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsGlobal" ColumnName="IsGlobal" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Item_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Item_T">
+              <MappingFragment StoreEntitySet="Item_T">
+                <ScalarProperty Name="Item_ID" ColumnName="Item_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Image2" ColumnName="Image2" />
+                <ScalarProperty Name="Image3" ColumnName="Image3" />
+                <ScalarProperty Name="CatchPhrase" ColumnName="CatchPhrase" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemCategory_T">
+            <EntityTypeMapping TypeName="AdenSunModel.ItemCategory_T">
+              <MappingFragment StoreEntitySet="ItemCategory_T">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Order_T">
+              <MappingFragment StoreEntitySet="Order_T">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="ValidationDate" ColumnName="ValidationDate" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="DeliveryID" ColumnName="DeliveryID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItem_T">
+            <EntityTypeMapping TypeName="AdenSunModel.OrderItem_T">
+              <MappingFragment StoreEntitySet="OrderItem_T">
+                <ScalarProperty Name="OrderItemID" ColumnName="OrderItemID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Region_T">
+            <EntityTypeMapping TypeName="AdenSunModel.Region_T">
+              <MappingFragment StoreEntitySet="Region_T">
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCart_T">
+            <EntityTypeMapping TypeName="AdenSunModel.ShoppingCart_T">
+              <MappingFragment StoreEntitySet="ShoppingCart_T">
+                <ScalarProperty Name="ShoppingCartID" ColumnName="ShoppingCartID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShoppingCartItem_T">
+            <EntityTypeMapping TypeName="AdenSunModel.ShoppingCartItem_T">
+              <MappingFragment StoreEntitySet="ShoppingCartItem_T">
+                <ScalarProperty Name="ShoppingCartItemID" ColumnName="ShoppingCartItemID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ShoppingCartID" ColumnName="ShoppingCartID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AdenSunModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_T">
+            <EntityTypeMapping TypeName="AdenSunModel.User_T">
+              <MappingFragment StoreEntitySet="User_T">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsProfessional" ColumnName="IsProfessional" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="AdressID" ColumnName="AdressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReview_T">
+            <EntityTypeMapping TypeName="AdenSunModel.UserReview_T">
+              <MappingFragment StoreEntitySet="UserReview_T">
+                <ScalarProperty Name="UserReviewID" ColumnName="UserReviewID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="OrderItemID" ColumnName="OrderItemID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="J_Discount_Item" TypeName="AdenSunModel.J_Discount_Item" StoreEntitySet="J_Discount_Item">
+            <EndProperty Name="Discount_T">
+              <ScalarProperty Name="Discount_ID" ColumnName="DiscountID" />
+            </EndProperty>
+            <EndProperty Name="Item_T">
+              <ScalarProperty Name="Item_ID" ColumnName="ItemID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="J_Item_ItemCategory" TypeName="AdenSunModel.J_Item_ItemCategory" StoreEntitySet="J_Item_ItemCategory">
+            <EndProperty Name="Item_T">
+              <ScalarProperty Name="Item_ID" ColumnName="ItemID" />
+            </EndProperty>
+            <EndProperty Name="ItemCategory_T">
+              <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

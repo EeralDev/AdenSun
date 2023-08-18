@@ -41,6 +41,13 @@ namespace AdenSunAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/Public/Item/Category/{categoryID}")]
+        public List<ItemDTO> GetItemByCategory(int categoryID)
+        {
+            return _itemService.GetItemByCategorie(categoryID);
+        }
+
+        [HttpGet]
         [Route("api/Public/Category")]
         public List<CategoryTree> GetCategories() 
         {
@@ -74,7 +81,7 @@ namespace AdenSunAPI.Controllers
         [Route("api/Public/Discount/{isGlobal}")]
         public List<DiscountDTO> GetDiscount(bool isGlobal)
         {
-            return null;
+            return _discountService.GetDiscountsByType(isGlobal);
         }
     }
 }

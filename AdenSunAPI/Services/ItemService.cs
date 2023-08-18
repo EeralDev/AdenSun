@@ -23,7 +23,7 @@ namespace AdenSunAPI.Services
             using (_adenSunDBContext)
             {
                 //Création de l'objet de base
-                List<ItemDTO>  items = _adenSunDBContext.Item_T
+                List<ItemDTO> items = _adenSunDBContext.Item_T
                     .Select(item =>
                         new ItemDTO
                         {
@@ -68,7 +68,7 @@ namespace AdenSunAPI.Services
         public ItemDTO GetItemByID(int id)
         {
             ItemDTO myItem = _adenSunDBContext.Item_T
-                .Where (item => item.Item_ID == id)
+                .Where(item => item.Item_ID == id)
                 .Select(item =>
                     new ItemDTO
                     {
@@ -96,12 +96,107 @@ namespace AdenSunAPI.Services
                                 UserMail = Review.User_T.Mail
                             })
                         ).SelectMany(Review => Review)
-                        .ToList()})
+                        .ToList()
+                    })
             .FirstOrDefault();
-            AddParentsCategories(myItem);
-            AddDiscountsCategories(myItem);
-            return (myItem != default(ItemDTO)) ? myItem : null;
+            if (myItem != default(ItemDTO))
+            {
+                AddParentsCategories(myItem);
+                AddDiscountsCategories(myItem);
+                return myItem;
+            }
+            else
+            {
+                return null;
+            }
         }
+        //Méthode pour renvoyer la liste d'Item rattachée a une catégorie et a tout ces enfants
+        //Cette méthode est très mal coder elle devras être relue pour être retravailler
+        public List<ItemDTO> GetItemByCategorie(int CategoryID, List<ItemDTO> ItemsByCategory = null)
+        {
+            if (ItemsByCategory == null)
+            {
+                ItemsByCategory = new List<ItemDTO>();
+            }
+            using (AdenSunEntities CurrentContext = new AdenSunEntities())
+            {
+                //Ici je veux vérifier que l'ID renvoie bien une catégorie TODO : Checker les vérification dans les autre fonctions
+                ItemCategory_T currentCategory = CurrentContext.ItemCategory_T.Find(CategoryID);
+                if (currentCategory != null)
+                {
+                    ItemsByCategory.AddRange(currentCategory.Item_T.Select(item =>
+                        new ItemDTO
+                        {
+                            Item_ID = item.Item_ID,
+                            Name = item.Name,
+                            Price = item.Price,
+                            Brand = item.Brand,
+                            Description = item.Description,
+                            Quantity = item.Quantity,
+                            Image = item.Image,
+                            Image2 = item.Image2,
+                            Image3 = item.Image3,
+                            CatchPhrase = item.CatchPhrase,
+                            SKU = item.SKU,
+                            Categories = item.ItemCategory_T.Select(itemCat => new List<CategoryDTO> { new CategoryDTO { CategoryID = itemCat.CategoryID, Name = itemCat.Name, ParentID = itemCat.ParentID } }).ToList(),
+                            Discounts = item.Discount_T.Where(discount => discount.IsGlobal == true && discount.IsActive == true).Select(itemDisc => new DiscountDTO { Discount_ID = itemDisc.Discount_ID, Code = itemDisc.Code, Description = itemDisc.Description, Amount = itemDisc.Amount, CreationDate = itemDisc.CreationDate, ExpirationDate = itemDisc.ExpirationDate, IsActive = itemDisc.IsActive, IsGlobal = itemDisc.IsGlobal, CategoryID = itemDisc.CategoryID }).ToList(),
+                            Reviews = item.OrderItem_T.Select(itemOrd => itemOrd.UserReview_T.Select(
+                                Review => new ReviewDTO
+                                {
+                                    UserReviewID = Review.UserReviewID,
+                                    Rating = Review.Rating,
+                                    Description = Review.Description,
+                                    OrderItemID = Review.OrderItemID,
+                                    UserID = Review.User_T.UserID,
+                                    UserMail = Review.User_T.Mail
+                                })).SelectMany(Review => Review).ToList()
+                        }
+                    ));
+                    if (currentCategory.ItemCategory_T1.Count > 0)
+                    {
+                        foreach (ItemCategory_T childCategory in currentCategory.ItemCategory_T1)
+                        {
+                            ItemsByCategory = GetItemByCategorie(childCategory.CategoryID, ItemsByCategory);
+                        }
+                        System.Diagnostics.Debug.WriteLine("Je suis dans le return numéro 1");
+                        ItemsByCategory = ItemsByCategory.Distinct().ToList();
+                        //Ajout des catégorie parents.
+                        foreach (ItemDTO item in ItemsByCategory)
+                        {
+                            AddParentsCategories(item);
+                        }
+                        //Ajout des réduction lié au catégorie
+                        foreach (ItemDTO item in ItemsByCategory)
+                        {
+                            AddDiscountsCategories(item);
+                        }
+                        return ItemsByCategory;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine("Je suis dans le return numéro 2");
+                        ItemsByCategory = ItemsByCategory.Distinct().ToList();
+                        //Ajout des catégorie parents.
+                        foreach (ItemDTO item in ItemsByCategory)
+                        {
+                            AddParentsCategories(item);
+                        }
+                        //Ajout des réduction lié au catégorie
+                        foreach (ItemDTO item in ItemsByCategory)
+                        {
+                            AddDiscountsCategories(item);
+                        }
+                        return ItemsByCategory;
+                    }
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("Je suis dans le return numéro 3");
+                    return ItemsByCategory;
+                }
+            }
+        }
+
 
         //Méthode de traitement propre à la classe 
         private void AddParentsCategories(ItemDTO item)

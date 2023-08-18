@@ -15,7 +15,6 @@ namespace AdenSunAPI.Services
         {
             _adenSunDBContext = dbContext;
         }
-
         public List<DiscountDTO> GetActiveDiscounts() 
         {
             using (_adenSunDBContext)
@@ -38,6 +37,27 @@ namespace AdenSunAPI.Services
                     .ToList();
                 return Discounts;
             };
+        }
+        public List<DiscountDTO> GetDiscountsByType(bool isGlobal) 
+        {
+            using (_adenSunDBContext)
+            {
+                List<DiscountDTO> Discounts = _adenSunDBContext.Discount_T
+                        .Where(Discount => Discount.IsActive == true && Discount.IsGlobal == isGlobal)
+                        .Select(Discount => new DiscountDTO
+                        {
+                            Discount_ID = Discount.Discount_ID,
+                            Code = Discount.Code,
+                            Description = Discount.Description,
+                            Amount = Discount.Amount,
+                            CreationDate = Discount.CreationDate,
+                            ExpirationDate = Discount.ExpirationDate,
+                            CategoryID = Discount.CategoryID,
+                            IsActive = Discount.IsActive,
+                            IsGlobal= Discount.IsGlobal
+                        }).ToList();
+                return Discounts;
+            }
         }
     }
 }

@@ -1,13 +1,18 @@
 ﻿using AdenSunAPI.DAL.DTO;
 using AdenSunAPI.DAL.Entities;
+using AdenSunAPI.Models;
 using AdenSunAPI.Services;
 using Microsoft.Ajax.Utilities;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
 using System.Web.Http;
 
 namespace AdenSunAPI.Controllers
@@ -17,6 +22,7 @@ namespace AdenSunAPI.Controllers
         private readonly ItemService _itemService;
         private readonly CategoryService _categoryService;
         private readonly DiscountService _discountService;
+        private readonly AuthenticationService _authenticationService;
 
         public PublicController()
         {
@@ -24,8 +30,10 @@ namespace AdenSunAPI.Controllers
             _itemService = new ItemService(currentContext);
             _categoryService = new CategoryService(currentContext);
             _discountService = new DiscountService(currentContext);
+            _authenticationService = new AuthenticationService(currentContext);
         }
 
+        //Méthode Item
         [HttpGet]
         [Route("api/Public/Item")]
         public IEnumerable<ItemDTO> GetItem() 
@@ -40,6 +48,7 @@ namespace AdenSunAPI.Controllers
             return _itemService.GetItemByID(itemID);
         }
 
+        //Méthode Category
         [HttpGet]
         [Route("api/Public/Item/Category/{categoryID}")]
         public List<ItemDTO> GetItemByCategory(int categoryID)
@@ -70,6 +79,7 @@ namespace AdenSunAPI.Controllers
             return _categoryService.GetCategoriesByName(categoryID, maxHeight);
         }
 
+        //Méthode Discount
         [HttpGet]
         [Route("api/Public/Discount")]
         public List<DiscountDTO> GetDiscount() 
@@ -82,6 +92,21 @@ namespace AdenSunAPI.Controllers
         public List<DiscountDTO> GetDiscount(bool isGlobal)
         {
             return _discountService.GetDiscountsByType(isGlobal);
+        }
+
+        //Méthode Authentication
+        [HttpPost]
+        [Route("api/Public/Login")]
+        public LoginBriefCase Login([FromBody]Credential credential) 
+        {
+            return _authenticationService.Login(credential.Mail, credential.Password);            
+        }
+
+        [HttpPost]
+        [Route("api/Public/Register")]
+        public int Register([FromBody] RegisterBriefCase newUser )
+        { 
+            return _authenticationService.Register(newUser.NewUser, newUser.Password);
         }
     }
 }

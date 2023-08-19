@@ -197,9 +197,8 @@ namespace AdenSunAPI.Services
             }
         }
 
-
         //Méthode de traitement propre à la classe 
-        private void AddParentsCategories(ItemDTO item)
+        public void AddParentsCategories(ItemDTO item)
         {
             foreach (List<CategoryDTO> categories in item.Categories)
             {
@@ -216,7 +215,7 @@ namespace AdenSunAPI.Services
             }
         }
 
-        private void AddDiscountsCategories(ItemDTO item)
+        public void AddDiscountsCategories(ItemDTO item)
         {
             foreach (List<CategoryDTO> categories in item.Categories)
             {

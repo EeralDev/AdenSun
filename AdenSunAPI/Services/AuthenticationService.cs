@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
@@ -24,10 +25,11 @@ namespace AdenSunAPI.Services
         // TODO : Méthode de connexion coder très mal il faut une fois arriver à la V2 envisager d'utiliser un mapper ou un outils permettant de génrer plus facilement mes DTO.
         public LoginBriefCase Login(string userMail, string password) 
         {
+            string hashPassword = HashPassword(password);
             User_T tmpUser = _adenSunDBContext.User_T
                 .Include("Adress_T") // Cette ligne a l'air de ne servir a rien il faudrait la retester peut-être avec la méthode .AsEnumerable()
                 .Include("ShoppingCart_T")
-                .Where(user => user.Mail == userMail && user.Password == password)
+                .Where(user => user.Mail == userMail && user.Password == hashPassword)
                 .FirstOrDefault();
             if (tmpUser != default(User_T)) 
             {
@@ -135,7 +137,7 @@ namespace AdenSunAPI.Services
                 User_T newDBUser = new User_T 
                 { 
                     Mail = newUser.Mail,
-                    Password = password,
+                    Password = HashPassword(password),
                     IsProfessional = newUser.IsProfessional,
                     PhoneNumber = newUser.PhoneNumber,
                     CreatedDate = System.DateTime.Now,
@@ -188,6 +190,14 @@ namespace AdenSunAPI.Services
             {
                 return null;
             }
+        }
+
+        // Méthode de hashage des mots de passe 
+        private string HashPassword(string password)
+        {
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(password);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            return System.Text.Encoding.UTF8.GetString(data);
         }
     }
 }

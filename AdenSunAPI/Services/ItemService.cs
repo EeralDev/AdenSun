@@ -110,6 +110,7 @@ namespace AdenSunAPI.Services
                 return null;
             }
         }
+
         //Méthode pour renvoyer la liste d'Item rattachée a une catégorie et a tout ces enfants
         //Cette méthode est très mal coder elle devras être relue pour être retravailler
         public List<ItemDTO> GetItemByCategorie(int CategoryID, List<ItemDTO> ItemsByCategory = null)

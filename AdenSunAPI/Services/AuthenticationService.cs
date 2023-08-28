@@ -192,7 +192,7 @@ namespace AdenSunAPI.Services
             }
         }
 
-        // Méthode de hashage des mots de passe 
+        // TODO : Méthode de hashage des mots de passe 
         private string HashPassword(string password)
         {
             byte[] data = System.Text.Encoding.UTF8.GetBytes(password);

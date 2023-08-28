@@ -274,8 +274,11 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="DAL\DTO\AdressDTO.cs" />
     <Compile Include="DAL\DTO\CategoryDTO.cs" />
+    <Compile Include="DAL\DTO\DeliveryDTO.cs" />
     <Compile Include="DAL\DTO\DiscountDTO.cs" />
     <Compile Include="DAL\DTO\ItemDTO.cs" />
+    <Compile Include="DAL\DTO\OrderDTO.cs" />
+    <Compile Include="DAL\DTO\OrderItemDTO.cs" />
     <Compile Include="DAL\DTO\ReviewDTO.cs" />
     <Compile Include="DAL\DTO\ShoppingCartDTO.cs" />
     <Compile Include="DAL\DTO\ShoppingCartItemDTO.cs" />
@@ -348,6 +351,9 @@
     <Compile Include="Services\CategoryService.cs" />
     <Compile Include="Services\DiscountService.cs" />
     <Compile Include="Services\ItemService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\ReviewService.cs" />
+    <Compile Include="Services\ShoppingCartService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

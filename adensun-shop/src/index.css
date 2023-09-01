@@ -24,6 +24,10 @@ a:hover {
 }
 
 body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
   margin: 0;
   display: flex;
   place-items: center;

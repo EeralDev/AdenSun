@@ -121,3 +121,14 @@ export interface IUser {
     Adress: IAddress;
     ShoppingCart: IShoppingCart[];
 }
+
+export type myUserContextType =
+    {
+        user: IUser | null,
+        token: string | null
+        LogIn: (user: IUser) => void;
+        LogOut: () => void;
+        AddItemToShoppingCart: (shoppingCartID: number, shoppingCartItemID: number, Quantity: number, item: IItem) => void;
+        UpdateShoppingCartItemQuantity: (shoppingCartId: number, shoppingCartItemID: number, quantity: number) => void;
+        RemoveItemFromShoppingCart: (shoppingCartItem: IShoppingCartItem) => void;
+    }

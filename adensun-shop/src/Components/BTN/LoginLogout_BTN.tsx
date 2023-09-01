@@ -1,28 +1,32 @@
 import { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button'
 import { LoginModalContext } from '../../Context/LoginModalContext';
+import { UserContext } from '../../Context/UserContext';
 import { useCookies } from 'react-cookie';
+import { redirect } from 'react-router-dom';
 
 
 function LoginLogout_BTN() {
 
-    //eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [tokenCookie, setTokenCookie, removeTokenCookie] = useCookies(["Token"]);
-
-    const [isLogIn, setIsLogIn] = useState(tokenCookie.Token !== undefined)
+    const user = useContext(UserContext)
 
     const loginModal = useContext(LoginModalContext);
 
+    const [button, setButton] = useState(<Button />);
     useEffect(() =>
     {
-        setIsLogIn(tokenCookie.Token !== undefined);
-    }, [tokenCookie])
+        
+        {
+            user.user === null ?
+                setButton(< Button onClick = { logIn } > Login</Button >):
+            setButton(<Button onClick={logOut}>Logout</Button>)
+        }
+    }, [user.user])
 
     const logOut = () =>
     {
-        window.localStorage.removeItem("User");
-        removeTokenCookie("Token");
-        setIsLogIn(false)
+        user.LogOut();
+        redirect('/');
     }
 
     const logIn = () =>
@@ -32,10 +36,7 @@ function LoginLogout_BTN() {
 
     return (
         <>
-            { isLogIn === false ? 
-                <Button onClick={logIn}>Login</Button>:
-            <Button onClick={logOut}>Logout</Button>
-            }
+            { button }
         </>    
     );
 }

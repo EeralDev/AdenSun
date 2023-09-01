@@ -1,41 +1,33 @@
 import { useContext} from 'react';
 import Button from 'react-bootstrap/Button';
 import { LoginModalContext } from '../../Context/LoginModalContext';
-import { useCookies } from 'react-cookie';
-import { IItem, IUser } from '../../DTO/DTOs';
+import { UserContext } from '../../Context/UserContext';
 
 function AddToShoppingCart_BTN(props) {
 
-    const [tokenCookie] = useCookies(["Token"])
 
-    /*Récupération du context d'affichage de la modal*/
+
+    /*Récupération des context : affichage de la modal, utilisateur*/
     const loginModal = useContext(LoginModalContext);
+    const user = useContext(UserContext);
 
     const handleButton = () =>
     {
-        if (tokenCookie.Token === undefined) {
+        if (user.user === null) {
             loginModal.OpenModal()
         }
         else
         {
             const requestOptions = {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': tokenCookie.Token }
+                headers: { 'Content-Type': 'application/json', 'Authorization': user.token }
             };
             fetch(`https://localhost:44316/api/Client/ShoppingCartItem/${props.shoppingCart.ShoppingCartID}?itemID=${props.item.Item_ID}&quantity=${props.quantity}`, requestOptions)
                 .then((res) => res.json())
                 .then(data => {
-                    alert(data)
-                    if (data !== 'E') {
-                        const currentUser: IUser = JSON.parse(localStorage.getItem("User"));
-                        currentUser.ShoppingCart.find((item) => item.ShoppingCartID === props.shoppingCart.ShoppingCartID).ShoppingCartItems.push(
-                            {
-                                Item: props.item as IItem,
-                                ShoppingCartID: props.shoppingCart.ShoppingCartID,
-                                ShoppingCartItemID: data,
-                                Quantity: props.quantity
-                            });
-                        window.localStorage.setItem("User", JSON.stringify(currentUser));
+                    alert(data);
+                    if (data[0] !== 'E') {
+                        user.AddItemToShoppingCart(props.shoppingCart.ShoppingCartID, data, props.quantity, props.item);
                     }
                     else
                     {
@@ -47,7 +39,7 @@ function AddToShoppingCart_BTN(props) {
 
     return (
         <>
-            <Button onClick={handleButton} >Ajouter au panier</Button>
+            <Button onClick={handleButton} ><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
         </>
     );
 }

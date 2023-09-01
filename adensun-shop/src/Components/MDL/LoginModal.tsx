@@ -5,8 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { LoginModalContext } from '../Context/LoginModalContext';
+import { LoginModalContext } from '../../Context/LoginModalContext';
 import { useCookies } from 'react-cookie';
+import { UserContext } from '../../Context/UserContext';
 
 
 function LoginModal() {
@@ -17,6 +18,10 @@ function LoginModal() {
     /*Gestion du context d'affichage*/
 
     const show = useContext(LoginModalContext)
+
+    /*Gestion du context d'utilisateur*/
+
+    const user = useContext(UserContext);
 
     /*gestion de l'affichage de la modale*/
 
@@ -49,7 +54,8 @@ function LoginModal() {
         {
             if (data !== null) {
                 window.localStorage.setItem("User", JSON.stringify(data.User));
-                setTokenCookie("Token", data.JWTToken, { path: "/", expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)});
+                setTokenCookie("Token", data.JWTToken, { path: "/", expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000) });
+                user.LogIn(data.User);
                 setIsFormMessageHide(true);
                 handleClose()
             }

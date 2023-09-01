@@ -11,6 +11,8 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="src\Components\NAV\" />
+    <Folder Include="src\Components\Display\" />
     <Folder Include="src\DTO\" />
   </ItemGroup>
 </Project>

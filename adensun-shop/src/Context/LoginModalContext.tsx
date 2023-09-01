@@ -18,7 +18,11 @@ const LoginModalContextProvider: React.FC<Props> = ({ children }) => {
     const CloseModal = () => {
         setMyModal({isOpen:false});
     };
-    return <LoginModalContext.Provider value={{ myModal, OpenModal, CloseModal }}>{children}</LoginModalContext.Provider>;
+    return (
+        <LoginModalContext.Provider value={{ myModal, OpenModal, CloseModal }}>
+            {children}
+        </LoginModalContext.Provider>
+    )
 };
 
 export default LoginModalContextProvider;

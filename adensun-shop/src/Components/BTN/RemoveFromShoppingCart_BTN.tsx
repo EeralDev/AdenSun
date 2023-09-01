@@ -2,13 +2,21 @@ import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import { LoginModalContext } from '../../Context/LoginModalContext';
 import { useCookies } from 'react-cookie';
-import { IItem, IUser } from '../../DTO/DTOs';
+import { UserContext } from '../../Context/UserContext';
+import { IShoppingCartItem } from '../../DTO/DTOs';
 
-function RemoveShoppingCartItem_BTN(props) {
+interface RemoveShoppingCartItemProps {
+    BSclass: string
+    shoppingCartItem: IShoppingCartItem
+}
+
+function RemoveShoppingCartItem_BTN(props: RemoveShoppingCartItemProps) {
     const [tokenCookie] = useCookies(["Token"])
 
     /*Récupération du context d'affichage de la modal*/
     const loginModal = useContext(LoginModalContext);
+    const user = useContext(UserContext);
+
 
     const handleButton = () => {
         if (tokenCookie.Token === undefined) {
@@ -19,21 +27,12 @@ function RemoveShoppingCartItem_BTN(props) {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json', 'Authorization': tokenCookie.Token }
             };
-            fetch(`https://localhost:44316/api/Client/ShoppingCartItem/${props.shoppingCartItem}`, requestOptions)
+            fetch(`https://localhost:44316/api/Client/ShoppingCartItem/${props.shoppingCartItem.ShoppingCartItemID}`, requestOptions)
                 .then((res) => res.json())
                 .then(data => {
                     alert(data)
-                    if (data !== 'E') {
-                        const currentUser: IUser = JSON.parse(localStorage.getItem("User"));
-                        currentUser.ShoppingCart.find((item) => item.ShoppingCartID === props.shoppingCart.ShoppingCartID).ShoppingCartItems.push(
-                            {
-                                Item: props.item as IItem,
-                                ShoppingCartID: props.shoppingCart.ShoppingCartID,
-                                ShoppingCartItemID: data,
-                                Quantity: props.quantity
-                            }
-                        );
-                        window.localStorage.setItem("User", JSON.stringify(currentUser));
+                    if (data[0] !== 'E') {
+                        user.RemoveItemFromShoppingCart(props.shoppingCartItem);
                     }
                     else {
                         alert(data);
@@ -45,7 +44,7 @@ function RemoveShoppingCartItem_BTN(props) {
 
     return (
         <>
-            <Button onClick={handleButton} >Ajouter au panier</Button>
+            <Button bsPrefix={props.BSclass} onClick={handleButton} type='button' t>Supprimer du panier</Button>
         </>
     );
 }

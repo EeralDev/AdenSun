@@ -16,6 +16,7 @@ namespace AdenSunAPI.Controllers
         private readonly ShoppingCartService _shoppingCartService;
         private readonly OrderService _orderService;
         private readonly ReviewService _reviewService;
+        private readonly AuthenticationService _authenticationService;
 
         public ClientController()
         {
@@ -23,22 +24,24 @@ namespace AdenSunAPI.Controllers
             _shoppingCartService = new ShoppingCartService(currentContext);
             _orderService = new OrderService(currentContext);
             _reviewService = new ReviewService(currentContext);
+            _authenticationService = new AuthenticationService(currentContext);
         }
 
         [HttpGet]
         [Route("api/Client")]
         [Authorize]
-        public string Get()
+        public UserDTO GetUser()
         {
             ClaimsIdentity identity = User.Identity as ClaimsIdentity;
-            if (identity != null)
+            int userID = GetUserID(identity);
+            if (userID != -1)
             {
-                IEnumerable<Claim> claims = identity.Claims;
-                string name = claims.Where(p => p.Type == "mail").FirstOrDefault()?.Value;
-                int id = Int32.Parse(claims.Where(p => p.Type == "userId").FirstOrDefault()?.Value);
-                return $"Vous êtes connecté en tant que {name} et votre ID d'utilisateur est {id}";
+                return _authenticationService.GetUser(userID);
             }
-            return "";
+            else
+            {
+                return null;
+            }
         }
 
         [Authorize]

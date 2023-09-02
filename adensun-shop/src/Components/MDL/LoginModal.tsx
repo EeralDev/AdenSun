@@ -37,7 +37,7 @@ function LoginModal() {
         setIsFormMessageHide(true);
     };
 
-    /*Définition des méthode*/
+    /*Dï¿½finition des mï¿½thode*/
 
     const handleFormSubmit = (event) =>
     {
@@ -112,7 +112,7 @@ function LoginModal() {
                     <Container>
                         <Row>                            
                             <Col>
-                                <Button variant="primary">
+                                <Button variant="primary" href="/SignUp">
                                     Creer votre compte
                                 </Button>
                             </Col>

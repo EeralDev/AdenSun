@@ -2,7 +2,7 @@ import React from 'react';
 
 function ErrorPage() {
   return (
-    <p>Désolé mais cette page n'existe pas !</p>
+    <p>DÃ©solÃ© mais cette page n'existe pas !</p>
   );
 }
 

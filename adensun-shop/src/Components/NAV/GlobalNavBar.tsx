@@ -8,13 +8,13 @@ import { UserContext } from '../../Context/UserContext';
 
 function GlobalNavBar() {
 
-    /*Hook permettant de recupérer le chemin courant */
+    /*Hook permettant de recupï¿½rer le chemin courant */
     const location = useLocation();
 
-    /*Hook permettant de gérer la navigation*/
+    /*Hook permettant de gï¿½rer la navigation*/
     const navigate = useNavigate();
 
-    /*Récupération du context² d'affichage de la modale*/
+    /*Rï¿½cupï¿½ration du contextï¿½ d'affichage de la modale*/
     const loginModal = useContext(LoginModalContext);
     const user = useContext(UserContext);
 
@@ -30,14 +30,15 @@ function GlobalNavBar() {
                             <Nav.Link href="/">Accueil</Nav.Link>
                             <Nav.Link href="/About" eventKey="/About">A propos</Nav.Link>
                             <NavDropdown title="Nos Produits" id="Item-dropdown">
-                                <NavDropdown.Item href="/Item" eventKey="/Item1">Catégorie 1</NavDropdown.Item>
-                                <NavDropdown.Item href="/Item" eventKey="/Item2">Catégorie 2</NavDropdown.Item>
-                                <NavDropdown.Item href="/Item" eventKey="/Item3">Catégorie 3</NavDropdown.Item>
+                                <NavDropdown.Item href="/Item" eventKey="/Item1">Fruits & Baies sÃ©chÃ©es</NavDropdown.Item>
+                                <NavDropdown.Item href="/Item" eventKey="/Item2">Poivre de la Jamaique</NavDropdown.Item>
+                                <NavDropdown.Item href="/Item" eventKey="/Item3">Anis Ã©toilÃ©</NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item href="/Item" eventKey="/Item4"> Catégorie autre</NavDropdown.Item>
+                                <NavDropdown.Item href="/Item" eventKey="/Item4">Ail</NavDropdown.Item>
                             </NavDropdown>
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/ShoppingCart') }} eventKey="/ShoppingCart">Mon Panier</Nav.Link>
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/Account') }} eventKey="/Account">Mon Compte</Nav.Link>
+                            <Nav.Link href="/SignUp" eventKey="/SignUp">S'inscrire</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                     <LoginLogout_BTN/>

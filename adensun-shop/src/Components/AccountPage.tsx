@@ -1,6 +1,6 @@
 import React from 'react';
 import AccountNavbar from './NAV/AccountNavbar';
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
 function AccountPage() {
     return (

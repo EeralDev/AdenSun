@@ -8,7 +8,7 @@ function AccountNavbar() {
                   <Navbar.Toggle aria-controls="ItemNavbar" />
                   <Navbar.Collapse id="ItemNavbar">
                       <Nav>
-                          <Nav.Link href='/Account/myAccount'>Mon compte</Nav.Link>
+                          <Nav.Link href='/Account/myAccount'>Modifier Login/Mdp</Nav.Link>
                           <Nav.Link href='/Account/Orders'>Mes commandes</Nav.Link>
                       </Nav>
                   </Navbar.Collapse>

@@ -19,6 +19,7 @@ import ItemDetails from './Components/DynamicPage/ItemDetails';
 import SignIn from './Components/SignInPage';
 import ConfirmOrderPage from './Components/OrderProcess/ConfirmOrderPage';
 import ValidateOrderPage from './Components/OrderProcess/ValidateOrderPage';
+import SignUpPage from './Components/SignUpPage'; 
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
                         <Routes>
                             <Route path='/' element={<HomePage />} />
                             <Route path='About' element={<AboutPage />} />
-                            S
+                            
                             <Route path='Account' element={<AccountPage />}>
                                 <Route index element={<Security><MyAccountPage /></Security>} />
                                 <Route path='myAccount' element={<Security>< MyAccountPage /></Security>} />
@@ -47,6 +48,7 @@ function App() {
                             <Route path='ConfirmOrder' element={<Security><ConfirmOrderPage /></Security>} />
 
                             <Route path='SignIn' element={<SignIn />} />
+                            <Route path='SignUp' element={<SignUpPage />} />
 
                             <Route path='*' element={<ErrorPage /> } />
                         </Routes>

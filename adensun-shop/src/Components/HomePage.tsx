@@ -10,8 +10,8 @@ function HomePage() {
         <>
             <h1>Bienvenue dans la boutique Aden Sun's</h1>
             {(user.user === null) ?
-                <h1>Vous n'etes pas connecte</h1> :
-                <p>Vous �tes connecter</p>}
+                <h1>Vous n'êtes pas connecté</h1> :
+                <p>Vous êtes connecté</p>}
             <br />
             <FakeHomePage />
             <ShoppingCartAccordion ShoppingCartIndex={0}/>

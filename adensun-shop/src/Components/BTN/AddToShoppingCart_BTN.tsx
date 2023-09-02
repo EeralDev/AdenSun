@@ -7,7 +7,7 @@ function AddToShoppingCart_BTN(props) {
 
 
 
-    /*Récupération des context : affichage de la modal, utilisateur*/
+    /*Rï¿½cupï¿½ration des context : affichage de la modal, utilisateur*/
     const loginModal = useContext(LoginModalContext);
     const user = useContext(UserContext);
 
@@ -39,7 +39,7 @@ function AddToShoppingCart_BTN(props) {
 
     return (
         <>
-            <Button onClick={handleButton} ><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
+            <Button onClick={handleButton} ><i className="fas fa-shopping-cart"></i>Ajouter au panier</Button>
         </>
     );
 }

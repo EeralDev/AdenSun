@@ -2,7 +2,7 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <p>Page a propos</p>
+    <p>Page à propos</p>
   );
 }
 

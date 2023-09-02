@@ -9,7 +9,7 @@ function Security({ children }) {
 
     useEffect(() =>
     {
-        console.log("je suis dans le useEffect de la sécurité");
+        console.log("je suis dans le useEffect de la sÃ©curitÃ©");
         if (user.user === null)
         {
             setIsLogin(user.user === null)

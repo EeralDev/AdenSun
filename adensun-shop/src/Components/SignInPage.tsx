@@ -2,7 +2,7 @@ import React from 'react';
 
 function SignIn() {
   return (
-    <p>Hello world!</p>
+    <p>Bonjour Tout le monde!</p>
   );
 }
 

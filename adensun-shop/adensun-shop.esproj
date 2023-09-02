@@ -11,6 +11,7 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include=".vscode\" />
     <Folder Include="src\Components\NAV\" />
     <Folder Include="src\Components\Display\" />
     <Folder Include="src\DTO\" />

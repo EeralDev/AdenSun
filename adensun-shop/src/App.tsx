@@ -1,4 +1,4 @@
-/*import './App.css'*/
+import './App.css';
 import LoginModal from './Components/MDL/LoginModal';
 import LoginModalContextProvider from "./Context/LoginModalContext";
 import { CookiesProvider } from "react-cookie";
@@ -39,7 +39,7 @@ function App() {
                             </Route>
                             <Route path='Account/Orders/Order/:orderId' element={<Security><OrderDetails /></Security>} /> 
 
-                            <Route path='Item' element={<ItemPage />} />
+                            <Route path='Item/:categorieID/:page' element={<ItemPage />} />
                             <Route path='Item/:itemId' element={<ItemDetails />} />
 
                             <Route path='ShoppingCart' element={<Security><ShoppingCartPage /></Security>} />

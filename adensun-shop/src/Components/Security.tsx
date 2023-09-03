@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../Context/UserContext';
+import LoadingSpinner from './Loading/LoadingSpinner';
 
 function Security({ children }) {
 
@@ -9,7 +10,6 @@ function Security({ children }) {
 
     useEffect(() =>
     {
-        console.log("je suis dans le useEffect de la sécurité");
         if (user.user === null)
         {
             setIsLogin(user.user === null)
@@ -19,7 +19,7 @@ function Security({ children }) {
 
     if (user.user === undefined)
     {
-        return <div>Loading</div>
+        return <LoadingSpinner/>
     }
 
     return (

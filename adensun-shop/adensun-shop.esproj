@@ -12,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Components\NAV\" />
-    <Folder Include="src\Components\Display\" />
+    <Folder Include="src\Components\Loading\" />
     <Folder Include="src\DTO\" />
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ function ShoppingCartItem(props: itemInListProps)
         let result = item.Price;
         item.Discounts.forEach((discount) =>
         {
-            result = result - item.Price / discount.Amount;
+            result = result - item.Price * discount.Amount / 100;
         })
         return Math.ceil(result*100)/100
     }
@@ -59,7 +59,7 @@ function ShoppingCartItem(props: itemInListProps)
                                                         <span>{tree[tree.length - 1].Name}</span>
                                                         {
                                                             (props.shoppingCartItem.Item.Categories.length - 1 !== index) ?
-                                                                <span className="text-primary"> / </span > :
+                                                                <span className="text-primary">-</span > :
                                                                 <></>
                                                         }                                                        
                                                     </>

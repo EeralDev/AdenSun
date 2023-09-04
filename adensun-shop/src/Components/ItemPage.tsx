@@ -51,33 +51,33 @@ function ItemPage() {
                     {items.map(item => {
                         return (
                             <React.Fragment key={"RC/" + item.Item_ID} >
-                                    <Col xs="12" md="6" lg="4">
-                                        <Item Item={item} />
+                                <Col key={"Col/" + item.Item_ID} xs="12" md="6" lg="4">
+                                    <Item key={"Item/" + item.Item_ID} Item={item} />
                                     </Col>
                             </React.Fragment>
                         )
                     })}
                 </Row>
-                <nav aria-label='Page navigation example'>
-                    <MDBPagination center className='mb-0'>
-                        <MDBPaginationItem disabled={(urlParams.page === "1") ? true : false}>
-                            <MDBPaginationLink href={`/Item/${urlParams.categorieID}/${parseInt(urlParams.page) - 1 }`}>
+                <nav>
+                    <MDBPagination key='Pagination' center className='mb-0'>
+                        <MDBPaginationItem key={`PaginationPrevItem}`} disabled={(urlParams.page === "1") ? true : false}>
+                            <MDBPaginationLink key={`PaginationPrevLink`} href={`/Item/${urlParams.categorieID}/${parseInt(urlParams.page) - 1 }`}>
                                 Previous
                             </MDBPaginationLink>
                         </MDBPaginationItem>
                         {
                             Array(Math.ceil(totalItems / 9)).fill(0).map((v, i) => {
                                 return (
-                                    <>
-                                        <MDBPaginationItem disabled={(urlParams.page === (i +1).toString()) ? true : false}>
-                                            <MDBPaginationLink key={`PaginationItem${i}/${v}`} href={`/Item/${urlParams.categorieID}/${i+1}`}>{i+1}</MDBPaginationLink>
+                                    <React.Fragment key={`FC/PaginationItem${i}/${v}`}>
+                                        <MDBPaginationItem key={`PaginationItem${i}/${v}`} disabled={(urlParams.page === (i +1).toString()) ? true : false}>
+                                            <MDBPaginationLink key={`PaginationLink${i}/${v}`} href={`/Item/${urlParams.categorieID}/${i+1}`}>{i+1}</MDBPaginationLink>
                                         </MDBPaginationItem>
-                                    </>
+                                    </React.Fragment>
                                 )
                             })
                         }
-                        <MDBPaginationItem disabled={(urlParams.page === Math.ceil(totalItems / 9).toString()) ? true : false}>
-                            <MDBPaginationLink href={`/Item/${urlParams.categorieID}/${parseInt(urlParams.page) + 1}`}>Next</MDBPaginationLink>
+                        <MDBPaginationItem key={`PaginationNextItem`} disabled={(urlParams.page === Math.ceil(totalItems / 9).toString()) ? true : false}>
+                            <MDBPaginationLink key={`PaginationLink`} href={`/Item/${urlParams.categorieID}/${parseInt(urlParams.page) + 1}`}>Next</MDBPaginationLink>
                         </MDBPaginationItem>
                     </MDBPagination>
                 </nav>

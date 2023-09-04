@@ -1,8 +1,8 @@
-import React from 'react';
 import { IItem, IShoppingCartItem } from '../../DTO/DTOs';
-import { Button, InputGroup } from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 import RemoveShoppingCartItem_BTN from '../BTN/RemoveFromShoppingCart_BTN';
 import ShoppingCartItemQuantity_BTN from '../BTN/ShoppingCartItemQuantity_BTN';
+import { MDBIcon } from 'mdb-react-ui-kit';
 
 interface itemInListProps
 {
@@ -11,7 +11,6 @@ interface itemInListProps
 
 function ShoppingCartItem(props: itemInListProps)
 {
-
     /*Fonction de calcul des prix réduit*/
     const discountPrice = (item: IItem): number =>
     {
@@ -24,14 +23,14 @@ function ShoppingCartItem(props: itemInListProps)
     }
 
     return (
-        <section style={{ backgroundColor: '#eee' }} >
+        <section >
             <div className="container py-1">
                 <div className="row justify-content-center mb-3">
-                    <div className="col-md-12 col-xl-10">
+                    <div className="col-md-12 col-xl-12">
                         <div className="card shadow-0 border rounded-3">
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                    <div className="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0 d-flex flex-wrap align-items-center">
                                         <div className="bg-image hover-zoom ripple rounded ripple-surface">
                                             <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
                                                 className="w-100" />
@@ -75,14 +74,14 @@ function ShoppingCartItem(props: itemInListProps)
                                             (props.shoppingCartItem.Item.Discounts.length === 0) ?
                                                 <>
                                                     <div className="d-flex flex-row align-items-center mb-1">
-                                                        <h4 className="mb-1 me-1">{props.shoppingCartItem.Item.Price * props.shoppingCartItem.Quantity} EUR</h4>
+                                                        <h4 className="mb-1 me-1">{props.shoppingCartItem.Item.Price * props.shoppingCartItem.Quantity}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
                                                     </div>
                                                 </>
                                                 :
                                                 <>
                                                     <div className="d-flex flex-row align-items-center mb-1">
-                                                        <h4 className="mb-1 me-1">{discountPrice(props.shoppingCartItem.Item) * props.shoppingCartItem.Quantity} EUR</h4>
-                                                        <span className="text-danger"><s>{ props.shoppingCartItem.Item.Price } EUR</s></span>
+                                                        <h4 className="mb-1 me-1">{discountPrice(props.shoppingCartItem.Item) * props.shoppingCartItem.Quantity}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
+                                                        <span className="text-danger"><s>{props.shoppingCartItem.Item.Price}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
                                                     </div>
                                                     <h6 className="text-success">{props.shoppingCartItem.Item.Discounts.length} reduction(s) sur cette article</h6>
                                                 </>

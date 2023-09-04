@@ -20,12 +20,13 @@ function Item(props: itemProps) {
 
     const [itemInShoppingCart, setItemInShoppingCart] = useState(false);
 
-    const [itemQuantity, setItemQuantity] = useState<number>(1)
+    const [itemQuantity, setItemQuantity] = useState<number>(1);
 
-    const [shoppingCartIndex, setShoppingCartIndex] = useState<number>(0)
+    const [shoppingCartIndex, setShoppingCartIndex] = useState<number>(0);
 
     useEffect(() => {
         setItemInShoppingCart(isItemInShoppingCart())
+        console.log(props.Item);
     }, [user, shoppingCartIndex])
 
     const discountPrice = (item: IItem): number => {
@@ -125,7 +126,7 @@ function Item(props: itemProps) {
                                                 (itemInShoppingCart) ?
                                                     <ShoppingCartItemQuantity_BTN BSClass="quantity-input" shoppingCartItem={user.user?.ShoppingCart[shoppingCartIndex].ShoppingCartItems.find((shoppingCartItem) => shoppingCartItem.Item.Item_ID === props.Item.Item_ID)} />
                                                     :
-                                                    <MDBInput label='Quantite' type="number" id="ItemQuantity" min="0" max={`${props.Item.Quantity}`} defaultValue={1} onChange={(e) => { setItemQuantity(parseInt(e.target.value)); }} />
+                                                    <MDBInput label='Quantite' type="number" id="ItemQuantity" min="1" max={`${props.Item.Quantity}`} defaultValue={1} onChange={(e) => { setItemQuantity(parseInt(e.target.value)); }} />
 
                                             }
                                         </div>

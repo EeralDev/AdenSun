@@ -161,16 +161,19 @@ namespace AdenSunAPI.Services
                         }
                         System.Diagnostics.Debug.WriteLine("Je suis dans le return numéro 1");
                         ItemsByCategory = ItemsByCategory.Distinct().ToList();
-                        //Ajout des catégorie parents.
-                        foreach (ItemDTO item in ItemsByCategory)
-                        {
-                            AddParentsCategories(item);
-                        }
-                        //Ajout des réduction lié au catégorie
-                        foreach (ItemDTO item in ItemsByCategory)
-                        {
-                            AddDiscountsCategories(item);
-                        }
+                        ////Ajout des catégorie parents.
+                        //foreach (ItemDTO item in ItemsByCategory)
+                        //{
+                        //    AddParentsCategories(item);
+                        //}
+                        ////Commenter ce code solutionne le problème lié au réduction multiple
+                        ////Ajout des réduction lié au catégorie
+                        //foreach (ItemDTO item in ItemsByCategory)
+                        //{
+                        //    System.Diagnostics.Debug.WriteLine($"Je vais ajouter les reduction dans le premier foreach à {item.Item_ID}");
+                        //    AddDiscountsCategories(item);
+                        //}
+                        System.Diagnostics.Debug.WriteLine(ItemsByCategory.Count());
                         return ItemsByCategory;
                     }
                     else
@@ -185,6 +188,7 @@ namespace AdenSunAPI.Services
                         //Ajout des réduction lié au catégorie
                         foreach (ItemDTO item in ItemsByCategory)
                         {
+                            System.Diagnostics.Debug.WriteLine($"Je vais ajouter les discounts à {item.Item_ID}");
                             AddDiscountsCategories(item);
                         }
                         return ItemsByCategory;
@@ -223,7 +227,7 @@ namespace AdenSunAPI.Services
                 foreach (CategoryDTO category in categories)
                 {
                     item.Discounts.AddRange(_adenSunDBContext.Discount_T
-                        .Where(discountItem => discountItem.CategoryID == category.CategoryID && discountItem.IsGlobal == true && discountItem.IsGlobal == true)
+                        .Where(discountItem => discountItem.CategoryID == category.CategoryID && discountItem.IsGlobal == true )
                         .Select(discount => new DiscountDTO { Discount_ID = discount.Discount_ID, Code = discount.Code, Description = discount.Description, Amount = discount.Amount, CreationDate = discount.CreationDate, ExpirationDate = discount.ExpirationDate, IsActive = discount.IsActive, IsGlobal = discount.IsGlobal, CategoryID = discount.CategoryID }).ToList());
                 }
             }

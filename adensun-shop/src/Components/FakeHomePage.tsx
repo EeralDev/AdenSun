@@ -15,9 +15,6 @@ function FakeHomePage() {
     {
         fetch('https://localhost:44316/api/Public/Item').then((res) => res.json()).then(data => setItems(data));
     }, [])
-    console.log("Console.log daprès déconnexion1");
-    console.log(user.user)
-    console.log("Console.log daprès déconnexion2");
     return (
         <>
             <h3>Voici la liste de nos produits</h3>

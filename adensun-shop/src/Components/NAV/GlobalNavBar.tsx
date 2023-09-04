@@ -8,16 +8,15 @@ import { UserContext } from '../../Context/UserContext';
 
 function GlobalNavBar() {
 
-    /*Hook permettant de recup�rer le chemin courant */
+    /*Hook permettant de recupérer le chemin courant */
     const location = useLocation();
 
-    /*Hook permettant de g�rer la navigation*/
+    /*Hook permettant de gérer la navigation*/
     const navigate = useNavigate();
 
-    /*R�cup�ration du context� d'affichage de la modale*/
+    /*Récupération du contexté d'affichage de la modale*/
     const loginModal = useContext(LoginModalContext);
     const user = useContext(UserContext);
-
 
     return (
         <>
@@ -36,6 +35,7 @@ function GlobalNavBar() {
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item href="/Item" eventKey="/Item4">Ail</NavDropdown.Item>
                             </NavDropdown>
+                            
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/ShoppingCart') }} eventKey="/ShoppingCart">Mon Panier</Nav.Link>
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/Account') }} eventKey="/Account">Mon Compte</Nav.Link>
                             <Nav.Link href="/SignUp" eventKey="/SignUp">S'inscrire</Nav.Link>

@@ -10,5 +10,12 @@ namespace AdenSunAPI.Models
     {
         public UserDTO NewUser { get; set; }
         public string Password { get; set; }
+
+        public RegisterBriefCase(UserDTO newuser, string newpassword)
+        {
+            NewUser = newuser;
+            Password = newpassword;
+        }
     }
+
 }

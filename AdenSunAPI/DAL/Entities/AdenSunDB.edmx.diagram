@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="96926800b46d466d9a45084418c7a820" Name="Diagram1" ZoomLevel="55">
+      <Diagram DiagramId="96926800b46d466d9a45084418c7a820" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="AdenSunModel.Adress_T" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
         <EntityTypeShape EntityType="AdenSunModel.Delivery_T" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AdenSunModel.Department_T" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />

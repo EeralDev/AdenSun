@@ -75,7 +75,6 @@ namespace AdenSunAPI.Controllers
         [Route("api/Public/Category/{categoryID}/{maxHeight}")]
         public List<CategoryTree> GetCategories(int categoryID, int? maxHeight)
         {
-
             return _categoryService.GetCategoriesByName(categoryID, maxHeight);
         }
 
@@ -97,7 +96,7 @@ namespace AdenSunAPI.Controllers
         //Méthode Authentication
         [HttpPost]
         [Route("api/Public/Login")]
-        public LoginBriefCase Login([FromBody]Credential credential) 
+        public LoginBriefCase Login([FromBody] Credential credential) 
         {
             return _authenticationService.Login(credential.Mail, credential.Password);            
         }

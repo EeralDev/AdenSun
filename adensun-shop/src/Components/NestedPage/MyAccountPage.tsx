@@ -2,7 +2,7 @@ import React from 'react';
 
 function MyAccountPage() {
   return (
-    <p>Ici on afficheras la page compte utilisateur</p>
+    <p>Ici on affichera la page compte utilisateur</p>
   );
 }
 

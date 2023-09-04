@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "react-cookie": "^6.1.0",
+    "react-router-dom": "^6.15.0"
+  }
+
+  ,"scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+}
+
+

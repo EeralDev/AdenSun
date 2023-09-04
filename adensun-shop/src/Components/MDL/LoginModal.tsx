@@ -37,7 +37,7 @@ function LoginModal() {
         setIsFormMessageHide(true);
     };
 
-    /*D�finition des m�thode*/
+    /*Définition des méthodes*/
 
     const handleFormSubmit = (event) =>
     {

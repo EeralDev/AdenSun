@@ -62,15 +62,15 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
                 ShoppingCartItemID: shoppingCartItemID,
                 Quantity: Quantity,
             })
-        updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total = updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total + item.Price * Quantity
+        updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total = updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total + parseFloat((item.Price * Quantity).toFixed(2))
         setUser(updatedUser);
     }
     const UpdateShoppingCartItemQuantity = (shoppingCartId:number, shoppingCartItemID: number, quantity: number) =>
     {
         const updatedUser = { ...user };
         updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total = updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).Total -
-            (updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Quantity * updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Item.Price) +
-            (quantity * updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Item.Price)
+            parseFloat(((updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Quantity * updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Item.Price)).toFixed(2)) +
+            parseFloat((quantity * updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Item.Price).toFixed(2))
         updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.find((i) => i.ShoppingCartItemID == shoppingCartItemID).Quantity = quantity;        
         setUser(updatedUser);
     }
@@ -82,7 +82,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
         if (indexOfShoppingCart !== -1) {
             const indexToRemove = user.ShoppingCart[indexOfShoppingCart].ShoppingCartItems.findIndex((i) => i.ShoppingCartItemID == shoppingCartItem.ShoppingCartItemID);
             if (indexToRemove !== -1) {
-                updatedUser.ShoppingCart[indexOfShoppingCart].Total = updatedUser.ShoppingCart[indexOfShoppingCart].Total.valueOf() - (shoppingCartItem.Item.Price * shoppingCartItem.Quantity); 
+                updatedUser.ShoppingCart[indexOfShoppingCart].Total = updatedUser.ShoppingCart[indexOfShoppingCart].Total - parseFloat((shoppingCartItem.Item.Price * shoppingCartItem.Quantity).toFixed(2)); 
                 updatedUser.ShoppingCart[indexOfShoppingCart].ShoppingCartItems.splice(indexToRemove, 1);
                 setUser(updatedUser);
             }

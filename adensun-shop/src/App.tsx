@@ -32,10 +32,7 @@ function App() {
                             <Route path='/' element={<HomePage />} />
                             <Route path='About' element={<AboutPage />} />
                             S
-                            <Route path='Account' element={<AccountPage />}>
-                                <Route index element={<Security><MyAccountPage /></Security>} />
-                                <Route path='myAccount' element={<Security>< MyAccountPage /></Security>} />
-                                <Route path='Orders' element={<Security><Orders /></Security>} />  
+                            <Route path='Account' element={<Security><AccountPage /></Security>}> 
                             </Route>
                             <Route path='Account/Orders/Order/:orderId' element={<Security><OrderDetails /></Security>} /> 
 
@@ -43,7 +40,7 @@ function App() {
                             <Route path='Item/:itemId' element={<ItemDetails />} />
 
                             <Route path='ShoppingCart' element={<Security><ShoppingCartPage /></Security>} />
-                            <Route path='ValidateOrder' element={<Security><ValidateOrderPage /></Security>} />
+                            <Route path='ValidateOrder/:shoppingCartIndex' element={<Security><ValidateOrderPage /></Security>} />
                             <Route path='ConfirmOrder' element={<Security><ConfirmOrderPage /></Security>} />
 
                             <Route path='SignIn' element={<SignIn />} />

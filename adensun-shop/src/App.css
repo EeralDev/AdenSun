@@ -66,3 +66,41 @@
     align-items: center;
     height: 350px;
 }
+
+/*Debut Class CSS page about*/
+
+.p1 {
+    font-family: 'Open Sans', sans-serif; /* Utilisez le nom de la police ou le nom générique de la police */
+    font-size: 15px; /* Taille de la police */
+    font-weight: normal; /* Épaisseur de la police (normal, bold, etc.) */
+    color: black;
+}
+
+
+
+.btn-contact {
+    background: transparent;
+    border-color: transparent;
+    width: 60px;
+    height: 60px;
+    background: var(--clr-grey-special);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--clr-red-special);
+    cursor: pointer;
+    margin-left: 1rem;
+    align-self: center;
+    min-width: 2rem;
+}
+
+.titre-about {
+    font-size: 60px; /* Réglez la taille de police selon vos préférences */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/*Fin classe CSS page about*/

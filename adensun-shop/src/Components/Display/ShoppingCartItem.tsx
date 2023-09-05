@@ -17,9 +17,11 @@ function ShoppingCartItem(props: itemInListProps)
         let result = item.Price;
         item.Discounts.forEach((discount) =>
         {
-            result = result - item.Price * discount.Amount / 100;
+            result = result - parseFloat((item.Price * discount.Amount / 100).toFixed(2));
+            
         })
-        return Math.ceil(result*100)/100
+        console.log(result);
+        return result
     }
 
     return (
@@ -80,8 +82,8 @@ function ShoppingCartItem(props: itemInListProps)
                                                 :
                                                 <>
                                                     <div className="d-flex flex-row align-items-center mb-1">
-                                                        <h4 className="mb-1 me-1">{discountPrice(props.shoppingCartItem.Item) * props.shoppingCartItem.Quantity}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
-                                                        <span className="text-danger"><s>{props.shoppingCartItem.Item.Price}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
+                                                        <h4 className="mb-1 me-1">{(discountPrice(props.shoppingCartItem.Item) * props.shoppingCartItem.Quantity).toFixed(2)}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
+                                                        <span className="text-danger"><s>{(props.shoppingCartItem.Item.Price * props.shoppingCartItem.Quantity).toFixed(2)}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
                                                     </div>
                                                     <h6 className="text-success">{props.shoppingCartItem.Item.Discounts.length} reduction(s) sur cette article</h6>
                                                 </>

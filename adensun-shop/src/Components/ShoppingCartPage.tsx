@@ -3,7 +3,7 @@ import { UserContext } from '../Context/UserContext';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import ShoppingCartItem from './Display/ShoppingCartItem';
 import { MDBBtn, MDBCard, MDBCardBody, MDBIcon, MDBInput, MDBTypography } from 'mdb-react-ui-kit';
-import NoITemInShoppingCart from '../../public/NoItemInShoppingCart.jpg'
+import NoITemInShoppingCart from '../../public/StaticImage/NoItemInShoppingCart.jpg'
 
 function ShoppingCartPage() {
 
@@ -18,17 +18,17 @@ function ShoppingCartPage() {
         setCurrentShoppingCart(index)
     }
 
-    const getTotalwithDiscounts = ():number =>
+    const getTotalwithDiscounts = ():string =>
     {
         let total = user.user?.ShoppingCart[currentShoppingCart].Total;
         user.user?.ShoppingCart[currentShoppingCart].ShoppingCartItems.forEach((item) =>
         {
             item.Item.Discounts.forEach((discount) =>
             {
-                total = total - ((item.Item.Price * (discount.Amount / 100)) * item.Quantity);
+                total = total - parseFloat((item.Item.Price * discount.Amount / 100).toFixed(2)) * item.Quantity;
             })
         })
-        return Math.ceil(total * 100) / 100
+        return total?.toFixed(2);
     }
 
     return (
@@ -89,8 +89,7 @@ function ShoppingCartPage() {
                                 <Row className="text-end">
                                     <Col className="border">
                                         <h4 className="mb-1 me-1">Total : {getTotalwithDiscounts()} <span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
-                                        <span className="text-danger"><s>{user.user?.ShoppingCart[currentShoppingCart].Total}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
-
+                                        <span className="text-danger"><s>{user.user?.ShoppingCart[currentShoppingCart].Total?.toFixed(2)}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
                                     </Col>
                                 </Row>
                             </Col>
@@ -125,7 +124,7 @@ function ShoppingCartPage() {
                                             
                                         </div>
                                     </div>
-                                    <MDBBtn type="button" className="btn btn-primary btn-block btn-lg" disabled={user.user?.ShoppingCart[currentShoppingCart].ShoppingCartItems.length === 0}>Confirmer le paiement</MDBBtn>
+                                    <MDBBtn type="button" className="btn btn-primary btn-block btn-lg" href={`/ValidateOrder/${currentShoppingCart}`} disabled={user.user?.ShoppingCart[currentShoppingCart].ShoppingCartItems.length === 0}>Confirmer le paiement</MDBBtn>
 
                                     <MDBBtn tag='a' className="text-center mt-5 "href='/Item/0/1'>
                                         Continuer vos achats

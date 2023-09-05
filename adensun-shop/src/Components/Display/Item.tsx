@@ -32,9 +32,9 @@ function Item(props: itemProps) {
     const discountPrice = (item: IItem): number => {
         let result = item.Price;
         item.Discounts.forEach((discount) => {
-            result = result - item.Price * discount.Amount/100;
+            result = result - parseFloat((item.Price * discount.Amount / 100).toFixed(2));
         })
-        return Math.ceil(result * 100) / 100
+        return result
     }
 
     const isItemInShoppingCart = ():boolean =>

@@ -145,8 +145,8 @@ namespace AdenSunAPI.Controllers
                 string validateMessage = _orderService.ValidateOrder(orderID, new DeliveryDTO 
                 { 
                     StartDate = DateTime.Now,
-                    Sender = "Fake sender",
-                    Price = 3.99,
+                    Sender = "FakePS",
+                    Price = 0,
                     //TODO : mettre à jours la base de donné pour que tracking number soit un string 
                     TrackingNumber = 1234567
                 });
@@ -244,6 +244,7 @@ namespace AdenSunAPI.Controllers
                 return "Error : Aucun identifiant client n'a été transmis.";
             }
         }
+
         //méthode privée propre à l'API
         //TODO : méthode pour récupérer l'UserID à rétravailler
         private int GetUserID(ClaimsIdentity identity)

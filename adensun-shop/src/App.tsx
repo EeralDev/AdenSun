@@ -11,8 +11,6 @@ import AccountPage from './Components/AccountPage';
 import ItemPage from './Components/ItemPage';
 import GlobalNavBar from './Components/NAV/GlobalNavBar';
 import ErrorPage from './Components/ErrorPage';
-import Orders from './Components/NestedPage/Orders';
-import MyAccountPage from './Components/NestedPage/MyAccountPage';
 import OrderDetails from './Components/DynamicPage/OrderDetails';
 import Security from './Components/Security';
 import ItemDetails from './Components/DynamicPage/ItemDetails';

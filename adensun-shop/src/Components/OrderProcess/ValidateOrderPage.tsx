@@ -122,7 +122,7 @@ function ValidateOrderPage() {
                         <MDBCardBody>
                             <MDBListGroup className="list-group-flush">
                                 {
-                                    user.user.ShoppingCart[parseInt(urlParams.shoppingCartIndex)]?.ShoppingCartItems.map((shoppingCartItem) =>
+                                    user.user?.ShoppingCart[parseInt(urlParams.shoppingCartIndex)]?.ShoppingCartItems.map((shoppingCartItem) =>
                                         <div className="d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                             <span>{shoppingCartItem.Quantity}x  <b>{shoppingCartItem.Item.Name}</b></span>
                                             <span>{((discountPrice(shoppingCartItem.Item) * shoppingCartItem.Quantity)).toFixed(2)}</span>

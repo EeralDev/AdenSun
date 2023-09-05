@@ -103,4 +103,66 @@
     font-weight: bold;
 }
 
+.p1 {
+    font-family: 'Open Sans', sans-serif; /* Utilisez le nom de la police ou le nom générique de la police */
+    font-size: 18px; /* Taille de la police */
+    font-weight: normal; /* Épaisseur de la police (normal, bold, etc.) */
+    color: black;
+}
+
+.footer-titre {
+    font-family: 'Open Sans', sans-serif; /* Utilisez le nom de la police ou le nom générique de la police */
+    font-size: 60px; /* Taille de la police */
+    font-weight: bold; /* Épaisseur de la police (normal, bold, etc.) */
+    color: #c66b3d;
+}
+
+.footer-menu {
+    font-family: 'Open Sans', sans-serif; /* Utilisez le nom de la police ou le nom générique de la police */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Épaisseur de la police (normal, bold, etc.) */
+    color: white;
+}
+
+
+.btnAbout {
+    background: transparent;
+    border-color: #c66b3d;
+    width: 160x;
+    height: 60px;
+    background: var(--clr-grey-special);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: var(--clr-red-special);
+    cursor: pointer;
+    margin-left: 1rem;
+    align-self: center;
+    min-width: 2rem;
+}
+
+.titre-about {
+    font-size: 60px; /* Réglez la taille de police selon vos préférences */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: #c66b3d;
+}
+
+.titre-home-little {
+    font-family: 'Open Sans', sans-serif; /* Utilisez le nom de la police ou le nom générique de la police */
+    font-size: 10px; /* Taille de la police */
+    display: flex;
+    font-weight: bold; /* Épaisseur de la police (normal, bold, etc.) */
+    color: #c66b3d;
+}
+
+.card-imageAbout {
+    width: 100%; /* L'image s'adapte à la largeur de la carte */
+    height: auto; /* Hauteur proportionnelle à la largeur */
+    object-fit: cover; /* Redimensionne l'image pour qu'elle couvre tout le contenu */
+}
+
 /*Fin classe CSS page about*/

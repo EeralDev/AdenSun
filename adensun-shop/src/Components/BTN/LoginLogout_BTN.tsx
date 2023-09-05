@@ -18,8 +18,8 @@ function LoginLogout_BTN() {
         
         {
             user.user === null ?
-                setButton(< Button onClick = { logIn } > Login</Button >):
-            setButton(<Button onClick={logOut}>Logout</Button>)
+                setButton(< Button style={{ backgroundColor: "#c66b3d", borderColor: "#c66b3d" }} onClick = { logIn } > Login</Button >):
+                setButton(<Button style={{ backgroundColor: "#c66b3d", borderColor: "#c66b3d" }} onClick={logOut}>Logout</Button>)
         }
     }, [user.user])
 

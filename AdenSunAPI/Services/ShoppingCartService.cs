@@ -33,7 +33,7 @@ namespace AdenSunAPI.Services
                         }
                         else
                         {
-                            return $"OK : Votre panier a bien été ajouter a la base de donné. {result} row were added to Database.";
+                            return newShoppingCart.ShoppingCartID.ToString();
                         }
                     }
                     else

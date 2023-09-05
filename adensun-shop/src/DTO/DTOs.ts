@@ -128,6 +128,8 @@ export type myUserContextType =
         token: string | null
         LogIn: (user: IUser) => void;
         LogOut: () => void;
+        UpdateUser: (user: IUser) => void;
+        AddShoppingCart: (shoppingCartID: number) => void;
         AddItemToShoppingCart: (shoppingCartID: number, shoppingCartItemID: number, Quantity: number, item: IItem) => void;
         UpdateShoppingCartItemQuantity: (shoppingCartId: number, shoppingCartItemID: number, quantity: number) => void;
         RemoveItemFromShoppingCart: (shoppingCartItem: IShoppingCartItem) => void;

@@ -53,6 +53,26 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
         setUser(null);
         setToken(null);
     }
+    const UpdateUser = (user:IUser) =>
+    {
+        setUser(user);
+    }
+    const AddShoppingCart = (shoppingCartID:number) =>
+    {
+        const updatedUser = { ...user };
+
+        updatedUser.ShoppingCart.push(
+            {
+                ShoppingCartID: shoppingCartID,
+                CreationDate: new Date(),
+                UserID: user.UserID,
+                LastUpdate: null,
+                ShoppingCartItems: [],
+                Total:0
+            });
+        setUser(updatedUser);
+
+    }
     const AddItemToShoppingCart = (shoppingCartId: number, shoppingCartItemID: number, Quantity: number, item: IItem) => {
         const updatedUser = { ...user };
         updatedUser.ShoppingCart.find((i) => i.ShoppingCartID == shoppingCartId).ShoppingCartItems.push(
@@ -90,7 +110,7 @@ const UserContextProvider: React.FC<Props> = ({ children }) => {
     }
 
     return (
-        <UserContext.Provider value={{ user, token, LogIn, LogOut, AddItemToShoppingCart, UpdateShoppingCartItemQuantity, RemoveItemFromShoppingCart }}>
+        <UserContext.Provider value={{ user, token, LogIn, LogOut, UpdateUser, AddShoppingCart, AddItemToShoppingCart, UpdateShoppingCartItemQuantity, RemoveItemFromShoppingCart }}>
             {children}
         </UserContext.Provider>
     )

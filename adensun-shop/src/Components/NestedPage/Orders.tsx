@@ -29,7 +29,7 @@ function Orders() {
     }, [user.token])
 
     return (
-        <MDBAccordion className="m-5" initialActive={1}>
+        <MDBAccordion className="m-3" initialActive={1}>
             {
                 orders.map((item, index) =>
                     <OrderItemAccordion Order={item} collapseID={index + 1}/>

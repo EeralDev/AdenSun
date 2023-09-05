@@ -39,7 +39,7 @@ function GlobalNavBar() {
 
     return (
         <>
-            <MDBNavbar expand='lg' light bgColor='light'>
+            <MDBNavbar expand='lg' light style={{ backgroundColor: "#c4a35a" }}>
                 <MDBContainer fluid>
 
                     <MDBNavbarBrand href='/'>Aden's Sun</MDBNavbarBrand>

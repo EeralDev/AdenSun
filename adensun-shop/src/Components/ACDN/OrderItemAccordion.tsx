@@ -72,10 +72,10 @@ function OrderItemAccordion(props: orderItemAccordionProps) {
                 <hr />
                 <Row>
                     <div className="d-grid  col-6">
-                        <MDBBtn onClick={openOrderDetailsModal}>Afficher les articles commande</MDBBtn>
+                        <MDBBtn style={{ backgroundColor: "#29465c", borderColor: "#000" }} onClick={openOrderDetailsModal}>Afficher les articles commande</MDBBtn>
                     </div>
                     <div className="d-grid col-6">
-                        <MDBBtn onClick={openDeliveryModal}>Statut de la livraison</MDBBtn>
+                        <MDBBtn style={{ backgroundColor: "#29465c", borderColor: "#000" }} onClick={openDeliveryModal}>Statut de la livraison</MDBBtn>
                     </div>
                 </Row>
             </MDBAccordionItem>

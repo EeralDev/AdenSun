@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col';
 import { LoginModalContext } from '../../Context/LoginModalContext';
 import { useCookies } from 'react-cookie';
 import { UserContext } from '../../Context/UserContext';
+import LoginSpiceMarket from '../../../public/StaticImage/LoginSpiceMarket.jpg';
 
 
 function LoginModal() {
@@ -75,14 +76,14 @@ function LoginModal() {
                 <Modal.Body>
                     <Container>
                         <Row>
-                            <Col className='bg-primary border-end border-3 '>
-                                Mettre une image ici
+                            <Col className='border-end border-3 '>
+                                <img src={LoginSpiceMarket} style={{ height: "100%", width: "100%", border: "3px solid #c66b3d"}} />
                             </Col>
                             <Col>
                                 <p id="FormMessage" hidden={isFormMessageHide}>L'adresse e-mail/identifiant de connexion ou le mot de passe est incorrect.</p>
                                 <Form id='LoginForm' onSubmit={handleFormSubmit}>
                                     <Row>
-                                        <Form.Group controlId="UserName">
+                                        <Form.Group controlId="UserName" className="mt-2 mb-4">
                                             <Form.Label>Nom d'utilisateur</Form.Label>
                                             <Form.Control
                                                 value={userName}
@@ -110,14 +111,14 @@ function LoginModal() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Container>
-                        <Row>                            
+                        <Row className="d-flex text-center justify-content-evenly align-items-center">                            
                             <Col>
-                                <Button variant="primary">
+                                <Button style={{ backgroundColor: "#29465c", borderColor: "#000" }} href="/SignIn" variant="primary">
                                     Creer votre compte
                                 </Button>
                             </Col>
                             <Col>
-                                <Button form='LoginForm' variant="primary" type="submit" disabled={ password === ""}>
+                                <Button style={{ backgroundColor: "#29465c", borderColor: "#000" }} form='LoginForm' variant="primary" type="submit" disabled={ password === ""}>
                                     Se connecter
                                 </Button>
                             </Col>

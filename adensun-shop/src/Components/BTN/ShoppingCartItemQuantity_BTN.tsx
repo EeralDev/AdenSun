@@ -46,11 +46,11 @@ function ShoppingCartItemQuantity_BTN(props:QuantityBTNProps) {
     return (
         <div className={props.BSClass}>
             <InputGroup>
-                <Button type='button' className="quantity-left-minus btn-number" onClick={() => { handleButton(props.shoppingCartItem.Quantity - 1) }}>
+                <Button type='button' className="quantity-left-minus btn-number" onClick={() => { handleButton(props.shoppingCartItem.Quantity - 1) }} style={{ backgroundColor: "#c66b3d", borderColor: "#000" }}>
                     <i className="fas fa-minus"></i>
                 </Button>
                 <input className="w-25" type="text" value={props.shoppingCartItem?.Quantity} style={{ textAlign: 'center' }} readOnly />
-                <Button className="" onClick={() => { handleButton(props.shoppingCartItem.Quantity + 1) }}>
+                <Button className="" onClick={() => { handleButton(props.shoppingCartItem.Quantity + 1) }} style={{ backgroundColor: "#c66b3d", borderColor: "#000" }}>
                     <i className="fas fa-plus"></i>
                 </Button>
             </InputGroup>

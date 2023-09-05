@@ -44,7 +44,7 @@ function RemoveShoppingCartItem_BTN(props: RemoveShoppingCartItemProps) {
 
     return (
         <>
-            <Button bsPrefix={props.BSclass} onClick={handleButton} type='button'>Supprimer du panier</Button>
+            <Button bsPrefix={props.BSclass} onClick={handleButton} type='button' style={{ color: "#c66b3d", borderColor: "#000", backgroundColor:"e5e5dc" }}>Supprimer du panier</Button>
         </>
     );
 }

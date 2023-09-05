@@ -3,6 +3,7 @@ import { Button} from 'react-bootstrap';
 import RemoveShoppingCartItem_BTN from '../BTN/RemoveFromShoppingCart_BTN';
 import ShoppingCartItemQuantity_BTN from '../BTN/ShoppingCartItemQuantity_BTN';
 import { MDBIcon } from 'mdb-react-ui-kit';
+import Item from './Item';
 
 interface itemInListProps
 {
@@ -29,12 +30,12 @@ function ShoppingCartItem(props: itemInListProps)
             <div className="container py-1">
                 <div className="row justify-content-center mb-3">
                     <div className="col-md-12 col-xl-12">
-                        <div className="card shadow-0 border rounded-3">
+                        <div className="card border" style={{borderColor:"c66b3d"}}>
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0 d-flex flex-wrap align-items-center">
                                         <div className="bg-image hover-zoom ripple rounded ripple-surface">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/img%20(4).webp"
+                                            <img src={`../../public/DynamicImage/${props.shoppingCartItem.Item.Image}.jpg`}
                                                 className="w-100" />
                                             <a href="#!">
                                                 <div className="hover-overlay">
@@ -89,8 +90,8 @@ function ShoppingCartItem(props: itemInListProps)
                                                 </>
                                         }
                                         <div className="d-flex flex-column mt-4">
-                                            <Button bsPrefix="btn btn-primary btn-sm" type="button" href={`/Item/${props.shoppingCartItem.Item.Item_ID}`}>Details</Button>
-                                            <RemoveShoppingCartItem_BTN BSclass="btn btn-outline-primary btn-sm mt-2" shoppingCartItem={props.shoppingCartItem} />
+                                            <Button bsPrefix="btn btn-primary btn-sm" style={{ backgroundColor: "#29465c", borderColor: "#000" }} type="button" href={`/Item/${props.shoppingCartItem.Item.Item_ID}`} disabled>Details</Button>
+                                            <RemoveShoppingCartItem_BTN BSclass="btn btn-outline btn-sm mt-2" shoppingCartItem={props.shoppingCartItem} />
                                         </div>
                                     </div>
                                 </div>

@@ -17,22 +17,22 @@ function AccountPage() {
 
     return (
         <>
-            <MDBRow>
-                <MDBCol size='3'>
+            <MDBRow style={{ backgroundColor: "#e5e5dc" }}>
+                <MDBCol size='2'>
                     <MDBTabs pills className='flex-column text-center'>
                         <MDBTabsItem>
-                            <MDBTabsLink onClick={() => handleActiveClick('MyAccount')} active={activePage === 'MyAccount'}>
+                            <MDBTabsLink style={{ backgroundColor: "#c66b3d", borderColor: "#000" }} onClick={() => handleActiveClick('MyAccount')} active={activePage === 'MyAccount'}>
                                 Mon Compte
                             </MDBTabsLink>
                         </MDBTabsItem>
                         <MDBTabsItem>
-                            <MDBTabsLink onClick={() => handleActiveClick('Orders')} active={activePage === 'Orders'}>
+                            <MDBTabsLink style={{ backgroundColor: "#c66b3d", borderColor: "#000" }} onClick={() => handleActiveClick('Orders')} active={activePage === 'Orders'}>
                                 Mes Commandes
                             </MDBTabsLink>
                         </MDBTabsItem>
                     </MDBTabs>
                 </MDBCol>
-                <MDBCol size='9'>
+                <MDBCol size='10'>
                     <MDBTabsContent>
                         <MDBTabsPane show={activePage === 'MyAccount'}><MyAccountPage/></MDBTabsPane>
                         <MDBTabsPane show={activePage === 'Orders'}><Orders/></MDBTabsPane>

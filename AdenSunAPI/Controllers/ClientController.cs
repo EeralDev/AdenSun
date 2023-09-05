@@ -245,6 +245,25 @@ namespace AdenSunAPI.Controllers
             }
         }
 
+        //Méthode dernière minute
+
+        [Authorize]
+        [HttpPut]
+        [Route("api/Client/User/Update")]
+        public string UpdateUser([FromBody] UserDTO user)
+        {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            int userID = GetUserID(identity);
+            if (userID != -1)
+            {
+                return new UserService(new AdenSunEntities()).UpdateUser(user);
+            }
+            else
+            {
+                return "Error : Aucun identifiant client n'a été transmis.";
+            }
+        }
+
         //méthode privée propre à l'API
         //TODO : méthode pour récupérer l'UserID à rétravailler
         private int GetUserID(ClaimsIdentity identity)

@@ -17,6 +17,7 @@ import ItemDetails from './Components/DynamicPage/ItemDetails';
 import SignIn from './Components/SignInPage';
 import ConfirmOrderPage from './Components/OrderProcess/ConfirmOrderPage';
 import ValidateOrderPage from './Components/OrderProcess/ValidateOrderPage';
+import Footer from './Components/NAV/Footer';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
 
                             <Route path='*' element={<ErrorPage /> } />
                         </Routes>
+                        <Footer/>
                         <LoginModal />
                     </UserContextProvider>
                 </LoginModalContextProvider>

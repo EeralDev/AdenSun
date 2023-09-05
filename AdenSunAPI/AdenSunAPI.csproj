@@ -354,6 +354,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ReviewService.cs" />
     <Compile Include="Services\ShoppingCartService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

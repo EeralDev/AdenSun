@@ -4,6 +4,7 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import ShoppingCartItem from './Display/ShoppingCartItem';
 import { MDBBtn, MDBCard, MDBCardBody, MDBIcon, MDBInput, MDBTypography } from 'mdb-react-ui-kit';
 import NoITemInShoppingCart from '../../public/StaticImage/NoItemInShoppingCart.jpg'
+import AddShoppingCartBtn from './BTN/AddShoppingCartBtn';
 
 function ShoppingCartPage() {
 
@@ -33,22 +34,31 @@ function ShoppingCartPage() {
 
     return (
         <>
-            <Container fluid>
-                <MDBTypography tag='div' className='text-center display-1 pt-3 pb-3 mb-3'>
+            <Container fluid className="p-3" style={{ backgroundColor: "#e5e5dc" }}>
+                <MDBTypography tag='div' className='text-center display-1 pt-3 pb-3 mb-3' style={{ color: "#c66b3d" }}>
                     Vos Paniers
                 </MDBTypography>
                 <Row>
                     <Col className="text-center">
+                        {user.user?.ShoppingCart.length < 3 ?
+                            <AddShoppingCartBtn />
+                            :
+                            <></>                       
+                        }
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-center">
                         {user.user?.ShoppingCart.map((item, index) =>
-                            <Button key={`Button_ShoppingCart_${user.user.ShoppingCart[index].ShoppingCartID}`} onClick={() => handleButtonClick(index)}>Panier numero {index + 1}</Button>)
+                            <Button key={`Button_ShoppingCart_${user.user.ShoppingCart[index].ShoppingCartID}`} onClick={() => handleButtonClick(index)} style={{ backgroundColor: "#29465c", borderColor: "#000" }}>Panier numero {index + 1}</Button>)
                         }
                     </Col> 
                 </Row>
-                <MDBCard className="mt-3 mb-3">
+                <MDBCard className="mt-3 mb-3 shadow-lg">
                     <MDBCardBody>
                         <Row>
                             <Col xs={12} md={9} className="border-end">
-                                <MDBTypography tag='div' className='text-center display-6 pt-3 pb-3 mb-3'>
+                                <MDBTypography tag='div' className='text-center display-6 pt-3 pb-3 mb-3' style={{ color: "#c4a35a" }}>
                                     Vos Produits
                                 </MDBTypography>
                                 {
@@ -87,14 +97,14 @@ function ShoppingCartPage() {
                                 }                                  
 
                                 <Row className="text-end">
-                                    <Col className="border">
+                                    <Col>
                                         <h4 className="mb-1 me-1">Total : {getTotalwithDiscounts()} <span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></h4>
                                         <span className="text-danger"><s>{user.user?.ShoppingCart[currentShoppingCart].Total?.toFixed(2)}<span><MDBIcon fas className="ms-1" size="xs" icon="euro-sign" /></span></s></span>
                                     </Col>
                                 </Row>
                             </Col>
                             <Col xs={12} md={3} >
-                                <MDBTypography tag='div' className='text-center display-6 pt-3 pb-3 mb-3'>
+                                <MDBTypography tag='div' className='text-center display-6 pt-3 pb-3 mb-3' style={{ color: "#c4a35a" }}>
                                    Paiements
                                 </MDBTypography>
                                 <form className="mb-5">
@@ -124,9 +134,9 @@ function ShoppingCartPage() {
                                             
                                         </div>
                                     </div>
-                                    <MDBBtn type="button" className="btn btn-primary btn-block btn-lg" href={`/ValidateOrder/${currentShoppingCart}`} disabled={user.user?.ShoppingCart[currentShoppingCart].ShoppingCartItems.length === 0}>Confirmer le paiement</MDBBtn>
+                                    <MDBBtn type="button" className="btn btn-primary btn-block btn-lg" href={`/ValidateOrder/${currentShoppingCart}`} disabled={user.user?.ShoppingCart[currentShoppingCart].ShoppingCartItems.length === 0} style={{ backgroundColor: "#29465c", borderColor: "#000" }}>Confirmer le paiement</MDBBtn>
 
-                                    <MDBBtn tag='a' className="text-center mt-5 "href='/Item/0/1'>
+                                    <MDBBtn tag='a' className="text-center mt-5 " href='/Item/0/1' style={{ backgroundColor: "#29465c", borderColor: "#000" }}>
                                         Continuer vos achats
                                     </MDBBtn>
 
@@ -135,7 +145,6 @@ function ShoppingCartPage() {
                         </Row>
                     </MDBCardBody>
                 </MDBCard>
-
             </Container>
         </>
     );

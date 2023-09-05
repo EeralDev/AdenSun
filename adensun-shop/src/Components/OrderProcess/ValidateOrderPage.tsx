@@ -1,10 +1,11 @@
 import { MDBBtn, MDBCard, MDBCardBody, MDBCardHeader, MDBCheckbox, MDBCol, MDBInput, MDBListGroup, MDBListGroupItem, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../../Context/UserContext';
 import { Col, Row } from 'react-bootstrap';
 import { IItem, IUser } from '../../DTO/DTOs';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoadingSpinner from '../Loading/LoadingSpinner';
+import UpdateUserBTN from '../BTN/UpdateUserBTN';
 
 function ValidateOrderPage() {
 
@@ -14,7 +15,13 @@ function ValidateOrderPage() {
 
     const urlParams = useParams();
 
-    const [currentUser, setCurrentUser] = useState<IUser>(user.user);
+    const [currentUser, setCurrentUser] = useState<IUser>({ ...user.user });
+
+    const [isFormCorrect, setIsFormCorrect] = useState(false);
+
+    useEffect(() => {
+        checkNewUser();
+    }, [currentUser])
 
     const discountPrice = (item: IItem): number => {
         let result = item.Price;
@@ -22,7 +29,6 @@ function ValidateOrderPage() {
             result = result - parseFloat((item.Price * discount.Amount / 100).toFixed(2));
 
         })
-        console.log(result);
         return result
     }
 
@@ -61,9 +67,29 @@ function ValidateOrderPage() {
         }
     }
 
+    const checkNewUser = () => {
+
+        // Vérification de l'adresse e-mail
+        const isMailValid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(currentUser.Mail);
+
+        // Vérification du numéro de téléphone
+        const isPhoneNumberValid = /^0\d{9}$/.test(currentUser.PhoneNumber);
+
+        // Vérification de l'adresse
+        const isAddressValid = currentUser.Adress.ZipCode !== null && !isNaN(currentUser.Adress.ZipCode) 
+            && currentUser.Adress.StreetName !== null && currentUser.Adress.StreetName !== ""
+            && currentUser.Adress.StreetNumber !== null && !isNaN(currentUser.Adress.StreetNumber)
+            && currentUser.Adress.City !== null && currentUser.Adress.City !== ""
+
+        // Si toutes les vérifications sont vraies, isFormCorrect est vrai, sinon faux
+        const isFormCorrect = isMailValid && isPhoneNumberValid && isAddressValid;
+
+        setIsFormCorrect(isFormCorrect);
+    }
+
     return (
-        <React.Fragment>
-            <MDBRow>
+        <React.Fragment >
+            <MDBRow className="p-4" style={{ backgroundColor: "#e5e5dc" }}>
                 <MDBCol className="col-md-8 mb-4">
                     <MDBCard className="mb-4">
                         <MDBCardHeader className="py-3">
@@ -79,7 +105,7 @@ function ValidateOrderPage() {
                                         <MDBInput className='mb-4' type='email' label='Adresse mail' defaultValue={currentUser?.Mail} readonly />
                                     </Col>
                                     <Col xs lg={6}>
-                                        <MDBInput className='mb-4' type='tel' label='Numero de telephone' defaultValue={currentUser?.PhoneNumber} onChange={(e) => { setCurrentUser({ ...currentUser, PhoneNumber: e.target.value }) }} />
+                                        <MDBInput className='mb-4' type='text' label='Numero de telephone' defaultValue={currentUser?.PhoneNumber} onChange={(e) => { setCurrentUser({ ...currentUser, PhoneNumber: e.target.value }) }} />
                                     </Col>
                                     <Col xs lg={12}>
                                         <MDBCheckbox className='mb-4' label='Compte pro' defaultChecked={currentUser?.IsProfessional} onChange={(e) => { setCurrentUser({ ...currentUser, IsProfessional: e.target.checked }) }} />
@@ -111,6 +137,7 @@ function ValidateOrderPage() {
                                     </Col>
                                 </Row>
                             </form>
+                            <UpdateUserBTN UpdateUser={currentUser} isDisabled={!isFormCorrect} />
                         </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -140,7 +167,7 @@ function ValidateOrderPage() {
                                     <span><strong>{getTotalwithDiscounts()}</strong></span>
                                 </MDBListGroupItem>
                             </MDBListGroup>
-                            <MDBBtn type="button" onClick={handleOrder} className="btn btn-primary btn-lg btn-block">
+                            <MDBBtn type="button" onClick={handleOrder} className="btn btn-primary btn-lg btn-block" style={{ backgroundColor: "#c66b3d", borderColor: "#000" }}>
                                 Confirmer l'achat
                             </MDBBtn>
                         </MDBCardBody>

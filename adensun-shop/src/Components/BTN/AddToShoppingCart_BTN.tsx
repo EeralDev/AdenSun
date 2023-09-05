@@ -39,7 +39,7 @@ function AddToShoppingCart_BTN(props) {
 
     return (
         <>
-            <Button onClick={handleButton} ><i className="fas fa-shopping-cart"></i> Add to Cart</Button>
+            <Button onClick={handleButton} style={{ backgroundColor: "#29465c", borderColor: "#000" }}><i className="fas fa-shopping-cart"></i> Ajouter au panier</Button>
         </>
     );
 }

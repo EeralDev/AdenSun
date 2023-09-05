@@ -38,7 +38,7 @@ function GlobalNavBar() {
                             
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/ShoppingCart') }} eventKey="/ShoppingCart">Mon Panier</Nav.Link>
                             <Nav.Link onClick={() => { (user.user === null) ? loginModal.OpenModal() : navigate('/Account') }} eventKey="/Account">Mon Compte</Nav.Link>
-                            <Nav.Link href="/SignUp" eventKey="/SignUp">S'inscrire</Nav.Link>
+                            <Nav.Link href="/SignIn" eventKey="/SignIn">S'inscrire</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                     <LoginLogout_BTN/>

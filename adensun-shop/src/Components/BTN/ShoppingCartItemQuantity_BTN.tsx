@@ -33,10 +33,9 @@ function ShoppingCartItemQuantity_BTN(props:QuantityBTNProps) {
                         console.log(data);
                         if (data[0] !== 'E') {
                             user.UpdateShoppingCartItemQuantity(props.shoppingCartItem.ShoppingCartID, props.shoppingCartItem.ShoppingCartItemID, quantity);
-                            console.log(user.user);
                         }
                         else {
-                            alert(data);
+                            alert("Une erreur s'est produite. Veuillez reessayer ulterieurement.");
                         }
                     });
             }

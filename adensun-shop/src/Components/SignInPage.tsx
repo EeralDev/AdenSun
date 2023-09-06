@@ -44,11 +44,11 @@ function SignIn() {
         };
         fetch("https://localhost:44316/api/Public/Register", requestOptions).then((res) => res.json()).then(data => {
             if (data !== null) {
-                alert(data)
+                console.log(`L'API a retourner le message suivant : ${data}`)
                 navigate('/');
             }
             else {
-                alert("Error : l'API a renvoyer Null");
+                alert("Une erreur s'est produite. Veuillez reessayer ulterieurement.");
             }
         });
     }

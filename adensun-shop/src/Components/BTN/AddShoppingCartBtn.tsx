@@ -25,7 +25,7 @@ function AddShoppingCartBtn() {
                         user.AddShoppingCart(data);
                     }
                     else {
-                        alert(data);
+                        alert("Une erreur s'est produite. Veuillez reessayer ulterieurement.");
                     }
                 });
         }

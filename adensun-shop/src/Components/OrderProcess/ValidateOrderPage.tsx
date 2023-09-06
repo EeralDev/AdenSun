@@ -60,7 +60,7 @@ function ValidateOrderPage() {
             fetch(`https://localhost:44316/api/Client/Order/${user.user?.ShoppingCart[parseInt(urlParams.shoppingCartIndex)].ShoppingCartID}`, requestOptions)
                 .then((res) => res.json())
                 .then(data => {
-                    alert(data);                    
+                    console.log(data);                    
                 }
             );
             navigate("/Account");

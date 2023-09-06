@@ -25,13 +25,13 @@ function AddToShoppingCart_BTN(props) {
             fetch(`https://localhost:44316/api/Client/ShoppingCartItem/${props.shoppingCart.ShoppingCartID}?itemID=${props.item.Item_ID}&quantity=${props.quantity}`, requestOptions)
                 .then((res) => res.json())
                 .then(data => {
-                    alert(data);
                     if (data[0] !== 'E') {
+                        console.log(`L'objet ${data} a bien ete ajoute au panier.`)
                         user.AddItemToShoppingCart(props.shoppingCart.ShoppingCartID, data, props.quantity, props.item);
                     }
                     else
                     {
-                        alert(data);
+                        alert("Une erreur s'est produite. Veuillez reessayer ulterieurement.");
                     }
                 });
         }

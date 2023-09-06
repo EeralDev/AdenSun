@@ -30,12 +30,11 @@ function RemoveShoppingCartItem_BTN(props: RemoveShoppingCartItemProps) {
             fetch(`https://localhost:44316/api/Client/ShoppingCartItem/${props.shoppingCartItem.ShoppingCartItemID}`, requestOptions)
                 .then((res) => res.json())
                 .then(data => {
-                    alert(data)
                     if (data[0] !== 'E') {
                         user.RemoveItemFromShoppingCart(props.shoppingCartItem);
                     }
                     else {
-                        alert(data);
+                        alert("Une erreur s'est produite. Veuillez reessayer ulterieurement.");
                     }
                 }
             );

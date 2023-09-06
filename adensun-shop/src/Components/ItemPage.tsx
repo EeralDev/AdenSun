@@ -4,6 +4,7 @@ import Item from './Display/Item';
 import { Col, Container, Row } from 'react-bootstrap';
 import { MDBPagination, MDBPaginationItem, MDBPaginationLink, MDBTypography } from 'mdb-react-ui-kit';
 import { useParams } from 'react-router-dom';
+import ItemJumbo from "../../public/staticImage/ItemJumbotron.jpg";
 
 function ItemPage() {
 
@@ -36,7 +37,7 @@ function ItemPage() {
             <Container fluid>
                 <Col className="mb-5">
                     <Row>
-                        <div className='p-5 text-center bg-image' style={{ backgroundSize: "cover", backgroundImage: "url('https://mdbootstrap.com/img/new/slides/041.webp')", height: '40vh' }}>
+                        <div className='p-5 text-center bg-image' style={{ backgroundSize: "cover", backgroundImage: `url(${ItemJumbo})`, height: '40vh' }}>
                             <div className='d-flex justify-content-center align-items-center h-100'>
                                 <div className='text-white'>
                                     <MDBTypography tag='div' className='display-1 pt-3 pb-3 mb-3'>
